@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import "react-toastify/dist/ReactToastify.css";
 import Providers from "store";
 import App from "./App";
 
