@@ -4,9 +4,9 @@ import { Fragment } from "react";
 import { Controller } from "react-hook-form";
 import { schema, fields_1 } from "./validations";
 
-export default function LoginForm() {
+export default function LoginForm({ handleLogin }) {
   const { register, handleSubmit, errors, control } = useFormWithYup(schema);
-  const onSubmit = (data) => props.handleLogin(data.email, data.password);
+  const onSubmit = (data) => handleLogin(data.email, data.password);
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>

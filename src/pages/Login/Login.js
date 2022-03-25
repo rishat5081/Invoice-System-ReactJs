@@ -11,21 +11,21 @@ import { useFormWithYup } from "hooks";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Fragment } from "react";
 import { Controller } from "react-hook-form";
+
+import { useHistory } from "react-router-dom";
 import { LoginPage, LoginFormStyle } from "./style";
 import LoginUserAPI from "../../Axios APIs/User APIs/Userapis";
-import { ToastContainer, toast } from "react-toastify";
-
-import "react-toastify/dist/ReactToastify.css";
 const Login = (props) => {
-  const requestLoginAPI = async () => {
-    await LoginUserAPI("email", "password")
-      .then((value) => {})
+  const requestLoginAPI = async (email, password) => {
+    await LoginUserAPI(email, password)
+      .then((value) => {
+        if (value) Toast(value.message, "success");
+      })
       .catch((err) => {
         Toast(err.message, "success");
         console.log(err);
       });
   };
-  requestLoginAPI();
 
   return (
     <>
@@ -44,7 +44,7 @@ const Login = (props) => {
                       <Icon name="logo" width={125} height={20} />
                     </Link>
                   </div>
-                  <LoginForm />
+                  <LoginForm handleLogin={requestLoginAPI} />
                 </LoginFormStyle>
               </div>
             </div>
