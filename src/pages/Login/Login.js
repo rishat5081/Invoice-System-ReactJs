@@ -22,6 +22,8 @@ const Login = (props) => {
       .then((value) => {
         if (value) {
           Toast("Successfully Logged In", "success");
+          localStorage.setItem("userDetails", value.user);
+          localStorage.setItem("token", value.token);
           history.push("/invoice-management");
         }
       })
