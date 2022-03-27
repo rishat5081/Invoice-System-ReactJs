@@ -1,4 +1,5 @@
 export { default as Login } from "./Login/Login";
+export { default as LoginAdmin } from "./LoginAdmin/Login";
 export { default as InvoiceManagement } from "./InvoiceManagement/InvoiceManagement";
 export { default as SupplierManagement } from "./SupplierManagement/SupplierManagement";
 export { default as ManagementSupplier } from "./ManagementSupplier/ManagementSupplier";

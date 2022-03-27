@@ -11,27 +11,18 @@ import { useFormWithYup } from "hooks";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Fragment } from "react";
 import { Controller } from "react-hook-form";
+
 import { useHistory } from "react-router-dom";
 import { LoginPage, LoginFormStyle } from "./style";
 import LoginUserAPI from "../../Axios APIs/User APIs/Userapis";
 const Login = (props) => {
-  const history = useHistory();
-
-  if (!login) {
-    history.push("/");
-  }
   const requestLoginAPI = async (email, password) => {
     await LoginUserAPI(email, password)
       .then((value) => {
-        if (value) {
-          Toast("Successfully Logged In", "success");
-          history.push("/");
-        }
-
-        console.log(useHistory);
+        if (value) Toast("Successfully Logged In", "success");
       })
       .catch((err) => {
-        Toast(err.message, "success");
+        Toast(err.message, "error");
         console.log(err);
       });
   };
@@ -43,9 +34,6 @@ const Login = (props) => {
         <div className="container-fluid">
           <div className="row">
             <div className="col-6 p-0">
-              <div className="jumbotron min-vh-100 text-center m-0 d-flex flex-column justify-content-center"></div>
-            </div>
-            <div className="col-6 p-0">
               <div className="jumbotron min-vh-100 p-4 m-0 d-flex flex-column justify-content-center">
                 <LoginFormStyle>
                   <div className="m-5 text-center">
@@ -56,6 +44,9 @@ const Login = (props) => {
                   <LoginForm handleLogin={requestLoginAPI} />
                 </LoginFormStyle>
               </div>
+            </div>
+            <div className="col-6 p-0">
+              <div className="jumbotron min-vh-100 text-center m-0 d-flex flex-column justify-content-center"></div>
             </div>
           </div>
         </div>
