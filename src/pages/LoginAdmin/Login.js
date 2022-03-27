@@ -14,12 +14,17 @@ import { Controller } from "react-hook-form";
 
 import { useHistory } from "react-router-dom";
 import { LoginPage, LoginFormStyle } from "./style";
-import LoginUserAPI from "../../Axios APIs/User APIs/Userapis";
+import LoginAdminAPI from "../../Axios APIs/Admin APIs/Adminapis";
 const Login = (props) => {
   const requestLoginAPI = async (email, password) => {
-    await LoginUserAPI(email, password)
+    await LoginAdminAPI(email, password)
       .then((value) => {
-        if (value) Toast("Successfully Logged In", "success");
+        if (value) {
+          Toast("Successfully Logged In", "success");
+          localStorage.setItem("userDetails", value.user);
+          localStorage.setItem("token", value.token);
+          history.push("/invoice-management");
+        }
       })
       .catch((err) => {
         Toast(err.message, "error");

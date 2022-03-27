@@ -1,10 +1,10 @@
 import axios from "../Axios/axios";
-import { LoginAPI } from "../Axios/constants";
+import { LoginAdminAPI } from "../Axios/adminConstants";
 
 export default function LoginUserAPI(email, password) {
   return new Promise(async (resolve, reject) => {
     await axios
-      .post(LoginAPI, {
+      .post(LoginAdminAPI, {
         email,
         password,
       })
