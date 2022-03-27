@@ -17,18 +17,13 @@ import LoginUserAPI from "../../Axios APIs/User APIs/Userapis";
 const Login = (props) => {
   const history = useHistory();
 
-  if (!login) {
-    history.push("/");
-  }
   const requestLoginAPI = async (email, password) => {
     await LoginUserAPI(email, password)
       .then((value) => {
         if (value) {
           Toast("Successfully Logged In", "success");
-          history.push("/");
+          history.push("/invoice-management");
         }
-
-        console.log(useHistory);
       })
       .catch((err) => {
         Toast(err.message, "success");
