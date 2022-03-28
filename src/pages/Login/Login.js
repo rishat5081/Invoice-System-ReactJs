@@ -9,16 +9,20 @@ import {
 } from "components";
 import { useFormWithYup } from "hooks";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { LoginPage, LoginFormStyle } from "./style";
 import LoginUserAPI from "../../Axios APIs/User APIs/Userapis";
-const Login = (props) => {
-  const history = useHistory();
+import axios from "axios";
 
+//functional component
+const Login = (props) => {
+  //states
+  const [ipAddress, setIpAddress] = useState(null);
+  const history = useHistory();
   const requestLoginAPI = async (email, password) => {
-    await LoginUserAPI(email, password)
+    await LoginUserAPI(email, password, ipAddress)
       .then((value) => {
         if (value) {
           Toast("Successfully Logged In", "success");
@@ -33,6 +37,11 @@ const Login = (props) => {
       });
   };
 
+  //getting the IP address of the user
+  useEffect(async () => {
+    const res = await axios.get("https://geolocation-db.com/json/");
+    setIpAddress(res.data.IPv4);
+  }, []);
   return (
     <>
       <LoginPage className="d-flex bd-highlight">

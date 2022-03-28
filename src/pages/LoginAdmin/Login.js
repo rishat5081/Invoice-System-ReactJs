@@ -9,7 +9,7 @@ import {
 } from "components";
 import { useFormWithYup } from "hooks";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Fragment } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 
 import { useHistory } from "react-router-dom";
@@ -17,6 +17,8 @@ import { LoginPage, LoginFormStyle } from "./style";
 import LoginAdminAPI from "../../Axios APIs/Admin APIs/Adminapis";
 const Login = (props) => {
   const requestLoginAPI = async (email, password) => {
+    //states
+    const [ipAddress, setIpAddress] = useState(null);
     await LoginAdminAPI(email, password)
       .then((value) => {
         if (value) {
@@ -31,6 +33,11 @@ const Login = (props) => {
         console.log(err);
       });
   };
+  //getting the IP address of the user
+  useEffect(async () => {
+    const res = await axios.get("https://geolocation-db.com/json/");
+    setIpAddress(res.data.IPv4);
+  }, []);
 
   return (
     <>
