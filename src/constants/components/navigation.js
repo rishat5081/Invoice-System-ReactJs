@@ -26,19 +26,19 @@ export const navigations = [
   //   hasSeparator: true,
   //   disabled: true,
   // },
-  {
-    to: paths.supplierManagement,
-    text: "Supplier Mgmt.",
-    icon: "attach-money",
-  },
+  // {
+  //   to: paths.supplierManagement,
+  //   text: "Supplier Mgmt.",
+  //   icon: "attach-money",
+  // },
   { to: paths.invoiceManagement, text: "Invoice Mgmt.", icon: "money" },
-  {
-    to: paths.supplierComparison,
-    text: "Supplier Comp.",
-    icon: "compare-arrows",
-    hasSeparator: true,
-  },
-  { to: paths.productLaunchTracker, text: "Product Launch", icon: "launch" },
-  { to: paths.dailyOperationsNotes, text: "Daily Operations", icon: "today" },
-  { to: paths.productManagement, text: "Product Mgmt.", icon: "beenhere" },
+  // {
+  //   to: paths.supplierComparison,
+  //   text: "Supplier Comp.",
+  //   icon: "compare-arrows",
+  //   hasSeparator: true,
+  // },
+  // { to: paths.productLaunchTracker, text: "Product Launch", icon: "launch" },
+  // { to: paths.dailyOperationsNotes, text: "Daily Operations", icon: "today" },
+  // { to: paths.productManagement, text: "Product Mgmt.", icon: "beenhere" },
 ];
