@@ -27,6 +27,7 @@ const Login = (props) => {
           Toast("Successfully Logged In", "success");
           localStorage.setItem("userDetails", value.user);
           localStorage.setItem("token", value.token);
+          localStorage.setItem("user", "admin");
           history.push("/invoice-management");
         }
       })
@@ -37,6 +38,7 @@ const Login = (props) => {
   };
   //getting the IP address of the user
   useEffect(async () => {
+    localStorage.setItem("user", "admin");
     history.push("/invoice-management");
     const res = await axios.get("https://geolocation-db.com/json/");
     setIpAddress(res.data.IPv4);

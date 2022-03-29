@@ -28,6 +28,7 @@ const Login = (props) => {
           Toast("Successfully Logged In", "success");
           localStorage.setItem("userDetails", value.user);
           localStorage.setItem("token", value.token);
+          localStorage.setItem("user", "user");
           history.push("/invoice-management");
         }
       })

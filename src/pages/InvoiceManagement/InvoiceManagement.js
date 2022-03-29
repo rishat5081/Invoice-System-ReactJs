@@ -30,7 +30,8 @@ const InvoiceManagement = () => {
               showDrawer({
                 content: (
                   <span style={{ color: "#ccc" }}>
-                    There is no component for this field. This will be updated, later.
+                    There is no component for this field. This will be updated,
+                    later.
                   </span>
                 ),
               })

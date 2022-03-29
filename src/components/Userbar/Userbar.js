@@ -7,6 +7,7 @@ const Userbar = () => {
   const logout = () => {
     localStorage.removeItem("userDetails");
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     history.push("/");
   };
   return (
