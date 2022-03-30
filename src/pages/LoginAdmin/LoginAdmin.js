@@ -38,8 +38,8 @@ const Login = (props) => {
   };
   //getting the IP address of the user
   useEffect(async () => {
-    localStorage.setItem("user", "admin");
-    history.push("/invoice-management");
+    // localStorage.setItem("user", "admin");
+    // history.push("/invoice-management");
     const res = await axios.get("https://geolocation-db.com/json/");
     setIpAddress(res.data.IPv4);
   }, []);
@@ -53,9 +53,9 @@ const Login = (props) => {
             <div className="col-6 p-0">
               <div className="jumbotron min-vh-100 p-4 m-0 d-flex flex-column justify-content-center">
                 <LoginFormStyle>
-                  <div className="m-5 text-center">
+                  <div className=" text-center">
                     <Link to="/">
-                      <Icon name="logo" width={125} height={20} />
+                      <Icon name="logo" width={150} height={150} />
                     </Link>
                   </div>
                   <LoginForm handleLogin={requestLoginAPI} />
