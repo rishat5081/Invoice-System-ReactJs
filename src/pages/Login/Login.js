@@ -33,7 +33,7 @@ const Login = (props) => {
         }
       })
       .catch((err) => {
-        Toast(err.message, "success");
+        Toast(err.title, "error");
         console.log(err);
       });
   };
