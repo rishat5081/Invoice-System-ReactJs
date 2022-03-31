@@ -8,7 +8,7 @@ const Sidebar = () => {
       <S.LogoWrapper>
         <Logo />
       </S.LogoWrapper>
-      <Navigation padding="0" />
+      <Navigation padding="0" role={localStorage.getItem("user")} />
     </S.Sidebar>
   );
 };

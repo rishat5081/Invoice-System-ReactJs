@@ -29,6 +29,8 @@ const Login = (props) => {
           localStorage.setItem("userDetails", value.user);
           localStorage.setItem("token", value.token);
           localStorage.setItem("user", "user");
+
+          document.cookie = "user";
           history.push("/invoice-management");
         }
       })
