@@ -2,9 +2,7 @@ export { default as Sidebar } from "./Sidebar/Sidebar";
 export { default as Header } from "./Header/Header";
 export { default as Navigation } from "./Navigation/Navigation";
 export { default as NavigationLink } from "./NavigationLink/NavigationLink";
-// export { default as Logo } from "./Logo/Logo";
 export { default as Logo } from "./Logo/Logo";
-
 export { default as Icon } from "./Icon/Icon";
 export { default as MenuDrawer } from "./MenuDrawer/MenuDrawer";
 export { default as Button } from "./Button/Button";
