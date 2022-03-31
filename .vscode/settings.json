@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/ed57324f-0453-4e27-a32a-d6ce061183e5/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/UK-Whole-Sale-React-App",
+  "appService.deploySubpath": "."
+}
