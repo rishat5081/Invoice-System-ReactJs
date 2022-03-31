@@ -7,7 +7,7 @@ const Logo = () => {
   return (
     <S.Logo>
       <Link to="/">
-        <Icon name="logo" width={125} height={20} />
+        <Icon name="logo" width={150} height={150} />
       </Link>
     </S.Logo>
   );
