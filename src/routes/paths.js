@@ -2,6 +2,7 @@ export const paths = {
   adminlogin: "/admin-login",
   login: "/",
   invoiceManagement: "/invoice-management",
+  userInvoices: "/user-invoice",
   supplierManagement: "/supplier-management",
   supplierManagementSupplier: "/supplier-management/supplier/:id",
   supplierComparison: "/supplier-comparison",

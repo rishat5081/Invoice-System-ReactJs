@@ -8,19 +8,19 @@ export const AdminSideBar = [
   {
     to: "not-found",
     text: "Admins",
-    icon: "peopleoutline",
+    icon: "admin",
     disabled: false,
   },
   {
     to: "not-found",
     text: "Accounts",
-    icon: "peopleoutline",
+    icon: "account",
     disabled: false,
   },
   {
     to: "not-found",
     text: "Login Logs",
-    icon: "mailoutline",
+    icon: "logs",
     disabled: false,
   },
 ];
