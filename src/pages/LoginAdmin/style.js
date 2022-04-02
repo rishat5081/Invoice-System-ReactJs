@@ -12,5 +12,5 @@ export const LoginPage = styled.div`
 
 export const LoginFormStyle = styled.div`
   padding: inherit;
-  background-color: #cccccc2b;
+  background-color: #2414142b;
 `;

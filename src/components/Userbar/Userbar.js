@@ -5,10 +5,12 @@ import { useHistory } from "react-router-dom";
 const Userbar = () => {
   const history = useHistory();
   const logout = () => {
+    const user = localStorage.getItem("user");
     localStorage.removeItem("userDetails");
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    history.push("/");
+    if (user === "user") history.push("/");
+    else history.push("/admin-login");
   };
   return (
     <S.Userbar>

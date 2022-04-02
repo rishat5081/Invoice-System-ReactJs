@@ -1,5 +1,5 @@
 export const paths = {
-  adminlogin: "/admin",
+  adminlogin: "/admin-login",
   login: "/",
   invoiceManagement: "/invoice-management",
   supplierManagement: "/supplier-management",
