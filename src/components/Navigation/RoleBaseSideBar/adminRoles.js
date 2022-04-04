@@ -1,5 +1,11 @@
 export const AdminSideBar = [
   {
+    to: "/user-invoice",
+    text: "Invoices",
+    icon: "money",
+    disabled: false,
+  },
+  {
     to: "not-found",
     text: "Users",
     icon: "dashboard",

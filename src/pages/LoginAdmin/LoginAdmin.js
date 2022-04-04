@@ -28,7 +28,7 @@ const Login = (props) => {
           localStorage.setItem("userDetails", value.user);
           localStorage.setItem("token", value.token);
           localStorage.setItem("user", "admin");
-          history.push("/invoice-management");
+          history.push("/user-invoice");
         }
       })
       .catch((err) => {

@@ -31,7 +31,8 @@ const Login = (props) => {
           localStorage.setItem("user", "user");
 
           document.cookie = "user";
-          history.push("/user-invoice");
+
+          history.push("/invoice-management");
         }
       })
       .catch((err) => {

@@ -19,7 +19,7 @@ const CreateNewInvoice = ({ onAddInvoice }) => {
   const fileTypes = ["CSV", "XLX", "XLXS"];
 
   const onSubmit = (data) => {
-    console.log("================");
+    console.log("========file ========", file);
     const { attachment } = data;
 
     console.log(attachment);
@@ -48,6 +48,13 @@ const CreateNewInvoice = ({ onAddInvoice }) => {
     // onHide();
   };
 
+  function convertData_Array(str, delimiter = ",") {
+    const headers = str.slice(0, str.indexOf("\n")).split(delimiter);
+    const rows = str.slice(str.indexOf("\n") + 1).split("\n");
+    const rowsInfo = rows.map((row) => row.split(","));
+    // return the header and rowsInfo
+    return { headers, rowsInfo };
+  }
   return (
     <>
       <div className="App">
@@ -60,6 +67,7 @@ const CreateNewInvoice = ({ onAddInvoice }) => {
         />
         <p>{file ? `File name: ${file[0].name}` : "no files uploaded yet"}</p>
       </div>
+      <button onClick={handleSubmit}> Click </button>
     </>
     // <form onSubmit={handleSubmit(onSubmit)}>
     //   {fields.map(({ name, label, type, ...rest }) => (
