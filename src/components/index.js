@@ -4,6 +4,8 @@ export { default as Navigation } from "./Navigation/Navigation";
 export { default as NavigationLink } from "./NavigationLink/NavigationLink";
 export { default as Logo } from "./Logo/Logo";
 export { default as Icon } from "./Icon/Icon";
+export { default as UL } from "./UL/UL";
+export { default as Li } from "./Li/Li";
 export { default as MenuDrawer } from "./MenuDrawer/MenuDrawer";
 export { default as Button } from "./Button/Button";
 export { default as CloseButton } from "./Button/CloseButton";
