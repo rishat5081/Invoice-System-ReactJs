@@ -1,6 +1,13 @@
 import axios from "../Axios/axios";
 import { LoginAdminAPI, CreateUser } from "../Axios/adminConstants";
 
+const token = localStorage.getItem("token");
+const tokenIntegration = {
+  headers: {
+    Authorization: "Bearer " + token, //the token is a variable which holds the token
+  },
+};
+
 export const LoginUserAPI = (email, password, ipAddress) => {
   return new Promise(async (resolve, reject) => {
     await axios
@@ -27,7 +34,7 @@ export const CreateUserAPI = (
 ) => {
   return new Promise(async (resolve, reject) => {
     await axios
-      .post(CreateUser, {
+      .post(CreateUser, tokenIntegration, {
         firstName,
         lastName,
         email,
