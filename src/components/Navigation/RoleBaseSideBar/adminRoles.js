@@ -1,3 +1,5 @@
+import { paths } from "routes/paths";
+
 export const AdminSideBar = [
   {
     to: "/user-invoice",
@@ -6,7 +8,7 @@ export const AdminSideBar = [
     disabled: false,
   },
   {
-    to: "not-found",
+    to: paths.userManagement,
     text: "Users",
     icon: "dashboard",
     disabled: false,

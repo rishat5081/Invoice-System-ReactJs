@@ -10,6 +10,11 @@ export const routes = [
     component: P.InvoiceManagement,
   },
   {
+    path: paths.userManagement,
+    exact: true,
+    component: P.UserManagement,
+  },
+  {
     path: paths.userInvoices,
     exact: true,
     component: P.UserInvoices,
