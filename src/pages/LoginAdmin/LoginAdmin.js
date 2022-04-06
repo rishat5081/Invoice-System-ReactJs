@@ -13,7 +13,7 @@ import { Fragment, useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { LoginPage, LoginFormStyle } from "./style";
-import LoginAdminAPI from "../../Axios APIs/Admin APIs/Adminapis";
+import { LoginUserAPI } from "../../Axios APIs/Admin APIs/Adminapis";
 import axios from "axios";
 const Login = (props) => {
   const [ipAddress, setIpAddress] = useState(null);
@@ -21,7 +21,7 @@ const Login = (props) => {
   const requestLoginAPI = async (email, password) => {
     //states
 
-    await LoginAdminAPI(email, password)
+    await LoginUserAPI(email, password)
       .then((value) => {
         if (value) {
           Toast("Successfully Logged In", "success");

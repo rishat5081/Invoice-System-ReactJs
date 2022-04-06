@@ -1,7 +1,7 @@
 import axios from "../Axios/axios";
 import { LoginAPI } from "../Axios/constants";
 
-export default function LoginUserAPI(email, password, ipAddress) {
+export const LoginUserAPI = (email, password, ipAddress) => {
   return new Promise(async (resolve, reject) => {
     await axios
       .post(LoginAPI, {
@@ -16,4 +16,4 @@ export default function LoginUserAPI(email, password, ipAddress) {
         if (err) reject(err.response.data);
       });
   });
-}
+};

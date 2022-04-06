@@ -10,20 +10,20 @@ export const schema = yup.object({
   firstName: yup.string().required("First Name is required"),
   lastName: yup.string().required("Last Name is required"),
   email: yup.string().required("Email is required"),
-  // dueDate: yup
-  //   .date()
-  //   .typeError("Valid date is required")
-  //   .required("Date is required"),
-  // invoiceAmount: yup
-  //   .number()
-  //   .typeError("Amount is required")
-  //   .positive("Should be positive!"),
-  // paidAmount: yup
-  //   .number()
-  //   .typeError("Amount is required")
-  //   .positive("Should be positive!"),
-  // status: yup.string().required("Status is required"),
-  // attachment: yup.mixed().required("File is required"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+    ),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+    ),
 });
 
 // Fields for the form
@@ -46,6 +46,18 @@ export const fields = [
     type: "text",
     placeholder: "e.g john@doe.com",
     label: "Email",
+  },
+  {
+    name: "password",
+    type: "password",
+    placeholder: "e.g 123@ki@nUFu",
+    label: "Password",
+  },
+  {
+    name: "confirmPassword",
+    type: "password",
+    placeholder: "e.g 123@ki@nUFu",
+    label: "Confirm Password",
   },
   // {
   //   name: "dueDate",

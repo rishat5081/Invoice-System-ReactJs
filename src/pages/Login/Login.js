@@ -13,7 +13,7 @@ import { Fragment, useEffect, useState } from "react";
 import { Controller } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { LoginPage, LoginFormStyle } from "./style";
-import LoginUserAPI from "../../Axios APIs/User APIs/Userapis";
+import { LoginUserAPI } from "../../Axios APIs/User APIs/Userapis";
 import axios from "axios";
 
 //functional component

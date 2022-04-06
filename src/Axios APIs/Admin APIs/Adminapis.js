@@ -1,7 +1,7 @@
 import axios from "../Axios/axios";
-import { LoginAdminAPI } from "../Axios/adminConstants";
+import { LoginAdminAPI, CreateUser } from "../Axios/adminConstants";
 
-export default function LoginUserAPI(email, password, ipAddress) {
+export const LoginUserAPI = (email, password, ipAddress) => {
   return new Promise(async (resolve, reject) => {
     await axios
       .post(LoginAdminAPI, {
@@ -16,4 +16,21 @@ export default function LoginUserAPI(email, password, ipAddress) {
         if (err) reject(err.response.data);
       });
   });
-}
+};
+
+export const CreateUserAPI = (email, password, confirmPassword) => {
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .post(CreateUser, {
+        email,
+        password,
+        confirmPassword,
+      })
+      .then((value) => {
+        if (value) resolve(value.data);
+      })
+      .catch((err) => {
+        if (err) reject(err.response.data);
+      });
+  });
+};
