@@ -2,7 +2,7 @@ import { Fragment, useContext } from "react";
 import { Controller } from "react-hook-form";
 
 import { useFormWithYup } from "hooks";
-import { Input, SubmitButton, Select } from "components";
+import { Input, SubmitButton, Select, Toast } from "components";
 import { capitalize } from "utils";
 import { schema, fields } from "./validations";
 import { ModalContext } from "store/modalContext";
@@ -13,20 +13,40 @@ const CreateNewInvoice = ({ onAddInvoice }) => {
   const { register, handleSubmit, errors, control } = useFormWithYup(schema);
   const { onHide } = useContext(ModalContext);
 
-  const onSubmit = (data) => {
-    const { firstName, lastName, email } = data;
-    onAddInvoice({
-      col1: firstName,
-      col2: lastName,
-      col3: email,
-      // col4: "105",
-      // col5: dueDate.toLocaleDateString(),
-      // col6: `$${invoiceAmount}`,
-      // col7: `$${paidAmount}`,
-      // col8: capitalize(status),
-      // col9: attachment[0]?.name || "No file uploaded",
-      // col10: "See notes",
-    });
+  const onSubmit = async (data) => {
+    const { firstName, lastName, email, password, confirmPassword } = data;
+
+    const userAdded = await CreateUserAPI(
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword
+    )
+      .then((value) => {
+        if (value) return true;
+        else return false;
+      })
+      .catch((err) => {
+        if (err) return false;
+        console.log(err);
+        Toast("User is Created Successfully", "error");
+      });
+    if (userAdded) {
+      Toast("User is Created Successfully", "success");
+      onAddInvoice({
+        col1: firstName,
+        col2: lastName,
+        col3: email,
+        // col4: "105",
+        // col5: dueDate.toLocaleDateString(),
+        // col6: `$${invoiceAmount}`,
+        // col7: `$${paidAmount}`,
+        // col8: capitalize(status),
+        // col9: attachment[0]?.name || "No file uploaded",
+        // col10: "See notes",
+      });
+    }
     onHide();
   };
 

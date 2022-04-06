@@ -16,8 +16,8 @@ const UserManagement = () => {
   const { onShow: showModal } = useContext(ModalContext);
   const { onShow: showDrawer } = useContext(DrawerContext);
 
-  const addInvoice = (newInvoice) => {
-    setTableData((prev) => [...prev, newInvoice]);
+  const addNewUser = (newUser) => {
+    setTableData((prev) => [...prev, newUser]);
     setIsTableTransformed(false);
   };
 
@@ -64,7 +64,7 @@ const UserManagement = () => {
     name: "New User",
     onClick: () => {
       showModal({
-        content: <Forms.CreateUser onAddInvoice={addInvoice} />,
+        content: <Forms.CreateUser onAddInvoice={addNewUser} />,
         title: "Create User",
       });
     },

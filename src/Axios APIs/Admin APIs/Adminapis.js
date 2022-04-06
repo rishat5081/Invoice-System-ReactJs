@@ -18,10 +18,18 @@ export const LoginUserAPI = (email, password, ipAddress) => {
   });
 };
 
-export const CreateUserAPI = (email, password, confirmPassword) => {
+export const CreateUserAPI = (
+  firstName,
+  lastName,
+  email,
+  password,
+  confirmPassword
+) => {
   return new Promise(async (resolve, reject) => {
     await axios
       .post(CreateUser, {
+        firstName,
+        lastName,
         email,
         password,
         confirmPassword,
