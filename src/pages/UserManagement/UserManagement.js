@@ -1,10 +1,12 @@
 import { useState, useEffect, useContext, useCallback } from "react";
 
 import { DashboardLayout } from "layouts";
-import { Table, TableLink, Forms } from "components";
+import { Table, TableLink, Forms, Spinner, User } from "components";
 
 import { ModalContext } from "store/modalContext";
 import { DrawerContext } from "store/drawerContext";
+
+import { GetAllUsersAPI } from "../../Axios APIs/Admin APIs/Adminapis";
 import { table } from "constants/pages/userManagement";
 import * as S from "./styles";
 
@@ -13,52 +15,44 @@ const UserManagement = () => {
   const [tableData, setTableData] = useState(table.data);
   const [transformedTableData, setTransformedTableData] = useState([]);
   const [isTableTransformed, setIsTableTransformed] = useState(false);
+  const [isWaiting, setIsWaiting] = useState(true);
   const { onShow: showModal } = useContext(ModalContext);
   const { onShow: showDrawer } = useContext(DrawerContext);
 
+  //add a new user to the table
   const addNewUser = (newUser) => {
     setTableData((prev) => [...prev, newUser]);
     setIsTableTransformed(false);
   };
 
-  const transformTableData = useCallback(() => {
-    setTransformedTableData(() => {
-      const transformedData = tableData.map((el) => {
-        const newCol1 = (
+  useEffect(async () => {
+    const getUsers = await GetAllUsersAPI();
+    if (getUsers.length > 0) {
+      const newTableData = getUsers.map((el) => {
+        const newCol = (
           <TableLink
-            onClick={() =>
-              showDrawer({
-                content: (
-                  <span style={{ color: "#ccc" }}>
-                    There is no component for this field. This will be updated,
-                    later.
-                  </span>
-                ),
-              })
-            }
+            onClick={() => showDrawer({ content: <User userId={el.id} /> })}
           >
-            {el.col1}
+            {el.firstName}
           </TableLink>
         );
-        const newCol10 = <S.SeeNotes>{el.col10}</S.SeeNotes>;
 
         return {
-          ...el,
-          col1: newCol1,
-          col10: newCol10,
+          firstName: newCol,
+          lastName: el.lastName,
+          email: el.email,
         };
       });
-
-      return transformedData;
-    });
-  }, [showDrawer, tableData]);
-
+      setTransformedTableData(newTableData);
+      setIsWaiting(false);
+    }
+  }, []);
   useEffect(() => {
     if (!isTableTransformed) {
-      transformTableData();
+      // transformTableData();
       setIsTableTransformed(true);
     }
-  }, [isTableTransformed, transformTableData]);
+  }, [isTableTransformed]);
 
   const topbarAction = {
     name: "New User",
@@ -72,7 +66,13 @@ const UserManagement = () => {
 
   return (
     <DashboardLayout title="User Management" topbarAction={topbarAction}>
-      <Table payload={{ data: transformedTableData, columns: table.columns }} />
+      {isWaiting === true ? (
+        <Spinner />
+      ) : (
+        <Table
+          payload={{ data: transformedTableData, columns: table.columns }}
+        />
+      )}
     </DashboardLayout>
   );
 };

@@ -6,6 +6,8 @@ export { default as Logo } from "./Logo/Logo";
 export { default as Icon } from "./Icon/Icon";
 export { default as UL } from "./UL/UL";
 export { default as Li } from "./Li/Li";
+export { default as Spinner } from "./Spinner/Spinner";
+export { default as User } from "./User/User";
 export { default as MenuDrawer } from "./MenuDrawer/MenuDrawer";
 export { default as Button } from "./Button/Button";
 export { default as CloseButton } from "./Button/CloseButton";
