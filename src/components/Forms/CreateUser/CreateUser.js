@@ -30,7 +30,7 @@ const CreateNewInvoice = ({ onAddInvoice }) => {
       .catch((err) => {
         if (err) return false;
         console.log(err);
-        Toast("User is Created Successfully", "error");
+        Toast("Error Creating User", "error");
       });
     if (userAdded) {
       Toast("User is Created Successfully", "success");
