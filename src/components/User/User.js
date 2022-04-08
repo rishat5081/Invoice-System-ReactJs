@@ -92,21 +92,6 @@ const User = ({ userId }) => {
           <SubmitButton>Update</SubmitButton>
         </form>
       </div>
-      <S.Details>
-        {/*  <S.DetailsTitle>User Details</S.DetailsTitle>*/}
-        <S.Detail>
-          <S.DetailTitle>First Name</S.DetailTitle>
-          <S.DetailDesc value={"Name"} />
-        </S.Detail>
-        <S.Detail>
-          <S.DetailTitle>Last Name</S.DetailTitle>
-          <S.DetailDesc value={"Name"} />
-        </S.Detail>
-        <S.Detail>
-          <S.DetailTitle>Email Name</S.DetailTitle>
-          <S.DetailDesc value={"Name"} />
-        </S.Detail>
-      </S.Details>
     </S.Supplier>
   );
 };

@@ -35,9 +35,9 @@ const CreateNewInvoice = ({ onAddInvoice }) => {
     if (userAdded) {
       Toast("User is Created Successfully", "success");
       onAddInvoice({
-        col1: firstName,
-        col2: lastName,
-        col3: email,
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
         // col4: "105",
         // col5: dueDate.toLocaleDateString(),
         // col6: `$${invoiceAmount}`,

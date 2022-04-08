@@ -21,6 +21,7 @@ const UserManagement = () => {
 
   //add a new user to the table
   const addNewUser = (newUser) => {
+    console.log("newUser --", newUser);
     setTableData((prev) => [...prev, newUser]);
     setIsTableTransformed(false);
   };
