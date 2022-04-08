@@ -51,10 +51,9 @@ export const DetailTitle = styled.span`
   margin-right: 15px;
 `;
 
-export const DetailDesc = styled.span`
+export const DetailDesc = styled.input`
   font-size: ${theme.font.md.size};
   font-weight: 500;
-
   color: ${theme.main.colors.text};
 `;
 

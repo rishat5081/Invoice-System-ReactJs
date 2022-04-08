@@ -55,3 +55,15 @@ export const GetAllUsersAPI = () => {
       });
   });
 };
+export const GetUserByIdAPI = (id) => {
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .get(constants.GetUserById, { params: { id } })
+      .then((value) => {
+        if (value) resolve(value.data);
+      })
+      .catch((err) => {
+        if (err) reject(err.response.data);
+      });
+  });
+};
