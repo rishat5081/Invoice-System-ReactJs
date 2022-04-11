@@ -21,9 +21,27 @@ const UserManagement = () => {
 
   //add a new user to the table
   const addNewUser = (newUser) => {
-    console.log("newUser --", newUser);
-    setTableData((prev) => [...prev, newUser]);
-    setIsTableTransformed(false);
+    console.log("newUser ---", newUser);
+    setIsWaiting(true);
+
+    const newCol = (
+      <TableLink
+        onClick={() => showDrawer({ content: <User userId={newUser.id} /> })}
+      >
+        {newUser.firstName}
+      </TableLink>
+    );
+
+    setTransformedTableData((prev) => [
+      ...prev,
+      {
+        firstName: newCol,
+        lastName: newUser.lastName,
+        email: newUser.email,
+      },
+    ]);
+
+    setIsWaiting(false);
   };
 
   useEffect(async () => {

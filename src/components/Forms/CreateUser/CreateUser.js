@@ -15,7 +15,6 @@ const CreateNewInvoice = ({ onAddInvoice }) => {
 
   const onSubmit = async (data) => {
     const { firstName, lastName, email, password, confirmPassword } = data;
-
     const userAdded = await CreateUserAPI(
       firstName,
       lastName,
@@ -24,30 +23,30 @@ const CreateNewInvoice = ({ onAddInvoice }) => {
       confirmPassword
     )
       .then((value) => {
-        if (value) return true;
-        else return false;
+        if (value) {
+          console.log("value ----", value);
+          Toast("User is Created Successfully", "success");
+          onAddInvoice({
+            id: value.Data.id,
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            // col4: "105",
+            // col5: dueDate.toLocaleDateString(),
+            // col6: `$${invoiceAmount}`,
+            // col7: `$${paidAmount}`,
+            // col8: capitalize(status),
+            // col9: attachment[0]?.name || "No file uploaded",
+            // col10: "See notes",
+          });
+          onHide();
+        } else return false;
       })
       .catch((err) => {
         if (err) return false;
         console.log(err);
         Toast("Error Creating User", "error");
       });
-    if (userAdded) {
-      Toast("User is Created Successfully", "success");
-      onAddInvoice({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        // col4: "105",
-        // col5: dueDate.toLocaleDateString(),
-        // col6: `$${invoiceAmount}`,
-        // col7: `$${paidAmount}`,
-        // col8: capitalize(status),
-        // col9: attachment[0]?.name || "No file uploaded",
-        // col10: "See notes",
-      });
-    }
-    onHide();
   };
 
   return (
