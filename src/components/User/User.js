@@ -1,9 +1,21 @@
-import { useEffect, useState, Fragment } from "react";
+import { useEffect, useState, Fragment, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { useFormWithYup } from "hooks";
 import { details, table } from "constants/components/user";
-import { OverviewTable, Icon, SubmitButton, Input, Spinner } from "components";
+import {
+  OverviewTable,
+  Icon,
+  SubmitButton,
+  Input,
+  Spinner,
+  Toast,
+} from "components";
 import * as S from "./styles";
-import { GetUserByIdAPI } from "../../Axios APIs/Admin APIs/Adminapis";
+import {
+  GetUserByIdAPI,
+  DeleteUserByIdAPI,
+  UpdateUserByIdAPI,
+} from "../../Axios APIs/Admin APIs/Adminapis";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { schema } from "./validation";
 import {
@@ -11,14 +23,18 @@ import {
   faTrash,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import { DrawerContext } from "store/drawerContext";
 /**
  * This component will be only use in Drawer as a content
  * @param {string} supplierId Id to fetch supplier data
  */
-const User = ({ userId }) => {
-  const { register, errors, control } = useFormWithYup(schema);
+const User = ({ userId, onDelete }) => {
+  const history = useHistory();
+  const { register, handleSubmit, errors, control } = useFormWithYup(schema);
   const [fields, setFields] = useState([]);
   const [isWaiting, setIsWaiting] = useState(true);
+  const { onHide } = useContext(DrawerContext);
+
   useEffect(async () => {
     // This will be use to fetch
     // supplier information from endpoints
@@ -28,7 +44,7 @@ const User = ({ userId }) => {
     const arr = [];
     arr.push({
       id: details.id,
-      name: details.firstName,
+      name: "firstName",
       value: details.firstName,
       type: "text",
       placeholder: "e.g John",
@@ -36,7 +52,7 @@ const User = ({ userId }) => {
     });
     arr.push({
       id: details.id,
-      name: details.lastName,
+      name: "lastName",
       value: details.lastName,
       type: "text",
       placeholder: "e.g Smith",
@@ -44,7 +60,7 @@ const User = ({ userId }) => {
     });
     arr.push({
       id: details.id,
-      name: details.email,
+      name: "email",
       value: details.email,
       type: "text",
       placeholder: "e.g smith@gmail.com",
@@ -54,8 +70,49 @@ const User = ({ userId }) => {
     setIsWaiting(false);
   }, []);
 
-  const handleSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    setIsWaiting(true);
+    const { firstName, lastName, email } = data;
+
+    const updateResponse = await UpdateUserByIdAPI(
+      userId,
+      firstName,
+      lastName,
+      email
+    )
+      .then((value) => {
+        if (value) {
+          Toast("Update Successfully", "success");
+          setIsWaiting(false);
+        }
+      })
+      .catch((err) => {
+        if (err) Toast("Error updating User", "error");
+      });
+  };
+
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(e.target.div);
+  //   console.log({ [e.target.name]: e.target.value });
+  // };
+
+  const deleteUser = async () => {
+    setIsWaiting(true);
+    const response = await DeleteUserByIdAPI(userId)
+      .then((value) => {
+        if (value) {
+          Toast("Deleted Successfully", "success");
+          onDelete(userId);
+          onHide();
+        }
+      })
+      .catch((err) => {
+        if (err) Toast("Error deleting User", "error");
+        console.log(err);
+      });
+
+    setIsWaiting(false);
   };
 
   return (
@@ -64,38 +121,44 @@ const User = ({ userId }) => {
         <Spinner />
       ) : (
         <>
-          <div class="d-flex justify-content-end">
-            <div className="p-2 text-danger">
+          <div className="d-flex justify-content-end">
+            <div className="p-2 text-danger" onClick={() => deleteUser()}>
               <FontAwesomeIcon icon={faTrash} />
             </div>
           </div>
           <div className="p-2 mb-5 ">
-            <form onSubmit={() => handleSubmit()}>
-              {fields.length < 0 ? (
-                <Spinner />
-              ) : (
-                fields.map(
-                  ({ id, name, label, value, type, ...rest }, index) => (
-                    <Fragment key={index}>
-                      <Input
-                        style={{
-                          width: "50%",
-                          color: "#2C7BE5",
-                          fontWeight: 500,
-                        }}
-                        key={id}
-                        value={value === null ? "" : value}
-                        label={label}
-                        error={errors[name]?.message}
-                        type={type}
-                        {...register(name)}
-                        {...rest}
-                      />
-                    </Fragment>
-                  )
-                )
-              )}
-
+            <form onSubmit={handleSubmit(onSubmit)}>
+              {fields.map(({ name, label, type, ...rest }) => (
+                <Fragment key={name}>
+                  {type === "select" ? (
+                    <Controller
+                      control={control}
+                      name={name}
+                      render={({
+                        field: { onChange, value },
+                        fieldState: { error },
+                      }) => (
+                        <Select
+                          value={value}
+                          label={label}
+                          onChange={onChange}
+                          error={error}
+                          {...rest}
+                        />
+                      )}
+                    />
+                  ) : (
+                    <Input
+                      key={name}
+                      label={label}
+                      error={errors[name]?.message}
+                      type={type}
+                      {...register(name)}
+                      {...rest}
+                    />
+                  )}
+                </Fragment>
+              ))}
               <SubmitButton>Update</SubmitButton>
             </form>
           </div>

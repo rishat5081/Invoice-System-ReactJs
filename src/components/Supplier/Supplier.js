@@ -41,8 +41,8 @@ const Supplier = ({ supplierId }) => {
       <S.Title>Notes</S.Title>
       <S.Notes>
         <S.Note>
-          I&apos;ve been working with this client for the past 3 months for consultin services. It
-          seem we&apos;ll continue to work together.
+          I&apos;ve been working with this client for the past 3 months for
+          consultin services. It seem we&apos;ll continue to work together.
         </S.Note>
       </S.Notes>
       <S.Title>Attachments</S.Title>

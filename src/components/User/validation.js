@@ -9,22 +9,6 @@ export const schema = yup.object({
   firstName: yup.string().required("First Name is required"),
   lastName: yup.string().required("Last Name is required"),
   email: yup.string().required("Email is required"),
-
-  // contactNumber: yup
-  //   .number()
-  //   .typeError("Contact Number is required")
-  //   .positive("Should be positive!"),
-  // mobileNumber: yup
-  //   .number()
-  //   .typeError("Contact Number is required")
-  //   .positive("Should be positive!"),
-  // paidAmount: yup
-  //   .number()
-  //   .typeError("Amount is required")
-  //   .positive("Should be positive!"),
-  // status: yup.string().required("Status is required"),
-
-  // attachment: yup.mixed().required("File is required"),
 });
 
 // Fields for the form
@@ -32,23 +16,23 @@ export const schema = yup.object({
 export const fields = [
   {
     id: 1,
-    name: "companyPhone",
-    type: "number",
-    placeholder: "1021-82115-2",
-    label: "Phone Number",
+    name: "firstName",
+    type: "text",
+    placeholder: "e.g Sara",
+    label: "First Name",
   },
   {
     id: 2,
-    name: "companyWeb",
+    name: "lastName",
     type: "text",
-    placeholder: "e.g www.kitkat.com",
+    placeholder: "e.g Kin",
     label: "Company Website",
   },
   {
     id: 3,
-    name: "companyAddress",
+    name: "email",
     type: "text",
-    placeholder: "e.g 140-West USA",
-    label: "Company Address",
+    placeholder: "e.g kin@gmail.com",
+    label: "Email",
   },
 ];

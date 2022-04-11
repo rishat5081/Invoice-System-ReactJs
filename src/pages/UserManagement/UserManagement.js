@@ -26,7 +26,11 @@ const UserManagement = () => {
 
     const newCol = (
       <TableLink
-        onClick={() => showDrawer({ content: <User userId={newUser.id} /> })}
+        onClick={() =>
+          showDrawer({
+            content: <User userId={newUser.id} onDelete={filterUser} />,
+          })
+        }
       >
         {newUser.firstName}
       </TableLink>
@@ -50,7 +54,11 @@ const UserManagement = () => {
       const newTableData = getUsers.map((el) => {
         const newCol = (
           <TableLink
-            onClick={() => showDrawer({ content: <User userId={el.id} /> })}
+            onClick={() =>
+              showDrawer({
+                content: <User userId={el.id} onDelete={filterUser} />,
+              })
+            }
           >
             {el.firstName}
           </TableLink>
@@ -73,6 +81,9 @@ const UserManagement = () => {
     }
   }, [isTableTransformed]);
 
+  const filterUser = async (userId) => {
+    console.log("userId---------", userId);
+  };
   const topbarAction = {
     name: "New User",
     onClick: () => {
