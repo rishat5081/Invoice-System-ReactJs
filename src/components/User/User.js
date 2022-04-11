@@ -32,6 +32,7 @@ const User = ({ userId, onDelete }) => {
   const history = useHistory();
   const { register, handleSubmit, errors, control } = useFormWithYup(schema);
   const [fields, setFields] = useState([]);
+  const [email, setEmail] = useState(null);
   const [isWaiting, setIsWaiting] = useState(true);
   const { onHide } = useContext(DrawerContext);
 
@@ -42,6 +43,7 @@ const User = ({ userId, onDelete }) => {
 
     const details = await GetUserByIdAPI(userId);
     const arr = [];
+    setEmail(details.email);
     arr.push({
       id: details.id,
       name: "firstName",
@@ -70,6 +72,7 @@ const User = ({ userId, onDelete }) => {
     setIsWaiting(false);
   }, []);
 
+  // updating the user
   const onSubmit = async (data) => {
     setIsWaiting(true);
     const { firstName, lastName, email } = data;
@@ -91,19 +94,14 @@ const User = ({ userId, onDelete }) => {
       });
   };
 
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log(e.target.div);
-  //   console.log({ [e.target.name]: e.target.value });
-  // };
-
+  //deleting the user
   const deleteUser = async () => {
     setIsWaiting(true);
     const response = await DeleteUserByIdAPI(userId)
       .then((value) => {
         if (value) {
           Toast("Deleted Successfully", "success");
-          onDelete(userId);
+          onDelete(email);
           onHide();
         }
       })

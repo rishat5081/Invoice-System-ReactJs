@@ -21,9 +21,7 @@ const UserManagement = () => {
 
   //add a new user to the table
   const addNewUser = (newUser) => {
-    console.log("newUser ---", newUser);
     setIsWaiting(true);
-
     const newCol = (
       <TableLink
         onClick={() =>
@@ -81,8 +79,12 @@ const UserManagement = () => {
     }
   }, [isTableTransformed]);
 
-  const filterUser = async (userId) => {
-    console.log("userId---------", userId);
+  const filterUser = async (email) => {
+    console.log("userId---------", email);
+    setIsWaiting(true);
+
+    setTransformedTableData((prev) => prev.filter((x) => x.email !== email));
+    setIsWaiting(false);
   };
   const topbarAction = {
     name: "New User",
