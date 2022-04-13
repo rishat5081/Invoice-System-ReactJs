@@ -18,41 +18,24 @@ const SupplierManagament = () => {
   const { onShow: showDrawer } = useContext(DrawerContext);
   const { onShow: showModal } = useContext(ModalContext);
 
+  const addInvoice = async () => {
+    console.log("addInvoice");
+  };
   const topbarAction = {
-    name: "New Supplier",
+    name: "Create an Account",
     onClick: () => {
       showModal({
-        title: "Create New Supplier",
-        // content: <Forms.CreateNewSupplier />,
-        content:
-          "When the supplier creation page added, this won't be open. And the link will redirect the creation page.",
+        content: <Forms.CreateNewInvoice onAddInvoice={addInvoice} />,
+        title: "Create New Account",
       });
     },
   };
 
-  // This will be use to transform data to JSX element
-  // when data fetched from api
-  const tableData = table.data.map((el) => {
-    const newCol = (
-      <TableLink onClick={() => showDrawer({ content: <Supplier /> })}>
-        {el.col1}
-      </TableLink>
-    );
-
-    return {
-      ...el,
-      col1: newCol,
-    };
-  });
-
   return (
-    <DashboardLayout title="Supplier Management" topbarAction={topbarAction}>
-      <S.TableOptions>
-        <Search />
-        <ReactSelect placeholder="Filter" width="240px" />
-      </S.TableOptions>
-      <Table payload={{ data: tableData, columns: table.columns }} />
-    </DashboardLayout>
+    <DashboardLayout
+      title="Accounts Management"
+      topbarAction={topbarAction}
+    ></DashboardLayout>
   );
 };
 
