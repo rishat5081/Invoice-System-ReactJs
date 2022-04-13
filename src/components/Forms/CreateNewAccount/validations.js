@@ -7,43 +7,30 @@ import * as yup from "yup";
 // Schema is for rules to check inputs
 // Error messages can get from store or constant by locale
 export const schema = yup.object({
-  supplierName: yup.string().required("Supplier is required"),
-  dueDate: yup.date().typeError("Valid date is required").required("Date is required"),
-  invoiceAmount: yup.number().typeError("Amount is required").positive("Should be positive!"),
-  paidAmount: yup.number().typeError("Amount is required").positive("Should be positive!"),
-  status: yup.string().required("Status is required"),
-  attachment: yup.mixed().required("File is required"),
+  accountNumber: yup.string().required("Account Number is required"),
+  companyName: yup.string().required("Company Name is required"),
+  accountType: yup.string().required("Account Type is required!"),
 });
 
 // Fields for the form
 // If you add type as "select", you need to add "items" object for the selection
 export const fields = [
   {
-    name: "supplierName",
-    type: "select",
-    items: [
-      {
-        value: "vcxSupplements",
-        label: "VCX Supplements",
-      },
-      { value: "mattelToys", label: "Mattel Toys" },
-      { value: "rcvSupplements", label: "RCV Supplements" },
-    ],
-    placeholder: "Click to select",
-    label: "Supplier",
+    name: "accountNumber",
+    type: "text",
+    placeholder: "e.g UK7841321",
+    label: "Account Number",
   },
-  { name: "dueDate", type: "date", placeholder: "20/02/2021", label: "Due Date" },
-  { name: "invoiceAmount", type: "number", placeholder: "$29.99", label: "Invoice Amount" },
-  { name: "paidAmount", type: "number", placeholder: "$29.99", label: "Paid Amount" },
   {
-    name: "status",
-    type: "select",
-    items: [
-      { value: "paid", label: "Paid" },
-      { value: "waiting", label: "Waiting" },
-    ],
-    label: "Status",
-    placeholder: "Click to select status",
+    name: "companyName",
+    type: "text",
+    placeholder: "e.g UK Wholesale",
+    label: "Company Name",
   },
-  { name: "attachment", type: "file", placeholder: "example.pdf", label: "Attachment" },
+  {
+    name: "accountType",
+    type: "text",
+    placeholder: "e.g Current",
+    label: "Account Type",
+  },
 ];

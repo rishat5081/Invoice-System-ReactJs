@@ -18,14 +18,11 @@ const SupplierManagament = () => {
   const { onShow: showDrawer } = useContext(DrawerContext);
   const { onShow: showModal } = useContext(ModalContext);
 
-  const addInvoice = async () => {
-    console.log("addInvoice");
-  };
   const topbarAction = {
     name: "Create an Account",
     onClick: () => {
       showModal({
-        content: <Forms.CreateNewInvoice onAddInvoice={addInvoice} />,
+        content: <Forms.CreateNewAccount />,
         title: "Create New Account",
       });
     },

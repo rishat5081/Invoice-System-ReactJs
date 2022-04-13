@@ -6,33 +6,22 @@ import { Input, SubmitButton, Select } from "components";
 import { capitalize } from "utils";
 import { schema, fields } from "./validations";
 import { ModalContext } from "store/modalContext";
-
-const CreateNewAccount = ({ onAddInvoice }) => {
+import { CreateNewAccountAPI } from "../../../Axios APIs/Accounts/accounts";
+const CreateNewAccount = () => {
   const { register, handleSubmit, errors, control } = useFormWithYup(schema);
   const { onHide } = useContext(ModalContext);
 
   const onSubmit = (data) => {
-    const {
-      supplierName,
-      dueDate,
-      invoiceAmount,
-      paidAmount,
-      status,
-      attachment,
-    } = data;
-    onAddInvoice({
-      col1: supplierName,
-      col2: "ACV Gummies",
-      col3: "Invoice",
-      col4: "105",
-      col5: dueDate.toLocaleDateString(),
-      col6: `$${invoiceAmount}`,
-      col7: `$${paidAmount}`,
-      col8: capitalize(status),
-      col9: attachment[0]?.name || "No file uploaded",
-      col10: "See notes",
-    });
-    onHide();
+    const { accountNumber, companyName, accountType } = data;
+    let payload = [{ accountNumber, companyName, accountType }];
+    CreateNewAccountAPI(payload)
+      .then((value) => {
+        console.log(value);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log("data", data);
   };
 
   return (
