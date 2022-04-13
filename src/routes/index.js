@@ -5,11 +5,6 @@ export const routes = [
   { path: paths.adminlogin, exact: true, component: P.LoginAdmin },
   { path: paths.login, exact: true, component: P.Login },
   {
-    path: paths.invoiceManagement,
-    exact: true,
-    component: P.InvoiceManagement,
-  },
-  {
     path: paths.userManagement,
     exact: true,
     component: P.UserManagement,
@@ -19,6 +14,17 @@ export const routes = [
     exact: true,
     component: P.UserInvoices,
   },
+  {
+    path: paths.accounts,
+    exact: true,
+    component: P.Accounts,
+  },
+  {
+    path: paths.invoiceManagement,
+    exact: true,
+    component: P.InvoiceManagement,
+  },
+
   {
     path: paths.supplierManagement,
     exact: true,

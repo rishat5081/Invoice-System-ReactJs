@@ -1,9 +1,10 @@
 export const paths = {
   adminlogin: "/admin-login",
   login: "/",
-  invoiceManagement: "/invoice-management",
   userManagement: "/user-management",
   userInvoices: "/user-invoice",
+  accounts: "/accounts",
+  invoiceManagement: "/invoice-management",
   supplierManagement: "/supplier-management",
   supplierManagementSupplier: "/supplier-management/supplier/:id",
   supplierComparison: "/supplier-comparison",

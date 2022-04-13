@@ -20,7 +20,7 @@ export const AdminSideBar = [
     disabled: false,
   },
   {
-    to: "not-found",
+    to: paths.accounts,
     text: "Accounts",
     icon: "account",
     disabled: false,
