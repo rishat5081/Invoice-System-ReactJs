@@ -1,12 +1,18 @@
 import axios from "../Axios/axios";
 import * as constants from "../Axios/accountsConstant";
 
-export const CreateNewAccountAPI = (usersAccounts) => {
+export const CreateNewAccountAPI = (
+  accountNumber,
+  companyName,
+  accountType
+) => {
   return new Promise(async (resolve, reject) => {
     await axios
       .post(constants.CreateNewAccount, {
         // usersAccounts: JSON.stringify(usersAccounts),
-        usersAccounts,
+        accountNumber,
+        companyName,
+        accountType,
       })
       .then((value) => {
         if (value) resolve(value.data);

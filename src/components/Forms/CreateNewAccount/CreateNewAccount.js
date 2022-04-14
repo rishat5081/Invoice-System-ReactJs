@@ -13,8 +13,8 @@ const CreateNewAccount = () => {
 
   const onSubmit = (data) => {
     const { accountNumber, companyName, accountType } = data;
-    let payload = [{ accountNumber, companyName, accountType }];
-    CreateNewAccountAPI(payload)
+    // let payload = [{ accountNumber, companyName, accountType }];
+    CreateNewAccountAPI(accountNumber, companyName, accountType)
       .then((value) => {
         console.log(value);
       })
