@@ -2,7 +2,7 @@ import { Fragment, useContext } from "react";
 import { Controller } from "react-hook-form";
 
 import { useFormWithYup } from "hooks";
-import { Input, SubmitButton, Select } from "components";
+import { Input, SubmitButton, Select, Toast } from "components";
 import { capitalize } from "utils";
 import { schema, fields } from "./validations";
 import { ModalContext } from "store/modalContext";
@@ -16,12 +16,13 @@ const CreateNewAccount = () => {
     // let payload = [{ accountNumber, companyName, accountType }];
     CreateNewAccountAPI(accountNumber, companyName, accountType)
       .then((value) => {
+        if (value) Toast(value, "success");
         console.log(value);
       })
       .catch((err) => {
+        if (err) Toast(err, "error");
         console.log(err);
       });
-    console.log("data", data);
   };
 
   return (

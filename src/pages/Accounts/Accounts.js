@@ -8,6 +8,7 @@ import {
   Supplier,
   TableLink,
   Forms,
+  Toast,
 } from "components";
 import { ModalContext } from "store/modalContext";
 import { DrawerContext } from "store/drawerContext";
@@ -57,7 +58,6 @@ const Accounts = () => {
     const pdfFileData = await readXlsxFile(file[0])
       .then((rows) => {
         if (rows) {
-          console.log(rows);
           return rows;
         } else null;
       })
@@ -104,13 +104,16 @@ const Accounts = () => {
         payload.push(object);
       });
 
-      console.log("payload", payload);
-
       await CreateAccountfromFileAPI(payload)
         .then((value) => {
-          console.log(value);
+          if (value) {
+            Toast(value, "success");
+          }
         })
         .catch((err) => {
+          if (err) {
+            Toast(err, "error");
+          }
           console.log(err);
         });
     }
