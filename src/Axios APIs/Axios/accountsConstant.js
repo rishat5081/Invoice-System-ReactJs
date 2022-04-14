@@ -1,2 +1,2 @@
-export const CreateNewAccount = "/api/User/RegisterAccount";
+export const CreateNewAccount = "/api/User/CreateAccount";
 export const CreateAccountfromFile = "/api/User/CreateUserAccount";
