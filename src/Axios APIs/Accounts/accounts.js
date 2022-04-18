@@ -22,6 +22,7 @@ export const CreateNewAccountAPI = (
       });
   });
 };
+
 export const CreateAccountfromFileAPI = (accountRegistration) => {
   return new Promise(async (resolve, reject) => {
     await axios
@@ -29,6 +30,18 @@ export const CreateAccountfromFileAPI = (accountRegistration) => {
         // usersAccounts: JSON.stringify(usersAccounts),
         accountRegistration,
       })
+      .then((value) => {
+        if (value) resolve(value.data);
+      })
+      .catch((err) => {
+        if (err) reject(err.response.data);
+      });
+  });
+};
+export const GetAllAccountAPI = () => {
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .get(constants.GetAllAccounts)
       .then((value) => {
         if (value) resolve(value.data);
       })

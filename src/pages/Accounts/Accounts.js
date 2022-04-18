@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
 import { DashboardLayout } from "layouts";
 import {
@@ -9,6 +9,8 @@ import {
   TableLink,
   Forms,
   Toast,
+  ReactTable,
+  Spinner,
 } from "components";
 import { ModalContext } from "store/modalContext";
 import { DrawerContext } from "store/drawerContext";
@@ -16,10 +18,17 @@ import { table } from "constants/pages/supplierManagement";
 import * as S from "./styles";
 import { FileUploader } from "react-drag-drop-files";
 import readXlsxFile from "read-excel-file";
-import { CreateAccountfromFileAPI } from "../../Axios APIs/Accounts/accounts";
+import {
+  CreateAccountfromFileAPI,
+  GetAllAccountAPI,
+} from "../../Axios APIs/Accounts/accounts";
 const Accounts = () => {
   const { onShow: showModal } = useContext(ModalContext);
-
+  const [isWaiting, setIsWaiting] = useState(true);
+  const [file, setFile] = useState(null);
+  const [tableData, setTableData] = useState([]);
+  // const [file, setFile] = useState(null);
+  const fileTypes = ["CSV", "XLS", "XLSX"];
   const companyName = "Company";
   const account = "Account";
   const accountType = "Account Type";
@@ -35,10 +44,6 @@ const Accounts = () => {
   let nameIndex = 0;
   let contactIndex = 0;
   let emailIndex = 0;
-
-  const [file, setFile] = useState(null);
-  // const [file, setFile] = useState(null);
-  const fileTypes = ["CSV", "XLS", "XLSX"];
 
   //model for creating the new account
 
@@ -119,6 +124,13 @@ const Accounts = () => {
     }
   };
 
+  useEffect(async () => {
+    const data = await GetAllAccountAPI();
+    if (data.length > 0) {
+      setTableData(data);
+      setIsWaiting(false);
+    }
+  }, []);
   return (
     <DashboardLayout title="Accounts Management" topbarAction={topbarAction}>
       <FileUploader
@@ -128,6 +140,8 @@ const Accounts = () => {
         types={fileTypes}
       />
       <p className="mt-4">{file ? `Selected file: ${file[0].name}` : ""}</p>
+
+      {isWaiting === true ? <Spinner /> : <ReactTable tableData={tableData} />}
     </DashboardLayout>
   );
 };

@@ -18,6 +18,7 @@ const CreateNewAccount = () => {
       .then((value) => {
         if (value) Toast(value, "success");
         console.log(value);
+        onHide();
       })
       .catch((err) => {
         if (err) Toast(err, "error");
