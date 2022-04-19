@@ -1,11 +1,10 @@
 import { useContext, useState, useEffect } from "react";
-
 import { DashboardLayout } from "layouts";
 import {
   Table,
   Search,
   ReactSelect,
-  Supplier,
+  Account,
   TableLink,
   Forms,
   Toast,
@@ -24,8 +23,10 @@ import {
 } from "../../Axios APIs/Accounts/accounts";
 const Accounts = () => {
   const { onShow: showModal } = useContext(ModalContext);
+  const { onShow: showDrawer } = useContext(DrawerContext);
   const [isWaiting, setIsWaiting] = useState(true);
   const [file, setFile] = useState(null);
+  const [updateAccountState, setUpdateAccountState] = useState(false);
   const [tableData, setTableData] = useState([]);
   // const [file, setFile] = useState(null);
   const fileTypes = ["CSV", "XLS", "XLSX"];
@@ -124,13 +125,44 @@ const Accounts = () => {
     }
   };
 
+  //child function
+  const updateAccount = (object) => {
+    setUpdateAccountState(true);
+  };
   useEffect(async () => {
+    console.log("Use Effect");
     const data = await GetAllAccountAPI();
     if (data.length > 0) {
-      setTableData(data);
+      const newData = data.map((obj) => ({
+        accountNumber: obj.accountNumber,
+        accountType: obj.accountType,
+        companyName: obj.companyName,
+        options: (
+          <button
+            className="p-1 btn btn-sm btn-primary"
+            onClick={() =>
+              showDrawer({
+                content: (
+                  <Account
+                    accountId={obj.id}
+                    onUpdate={updateAccount}
+                    accountNumber={obj.accountNumber}
+                    accountType={obj.accountType}
+                    companyName={obj.companyName}
+                  />
+                ),
+              })
+            }
+          >
+            {" "}
+            Update{" "}
+          </button>
+        ),
+      }));
+      setTableData(newData);
       setIsWaiting(false);
     }
-  }, []);
+  }, [updateAccountState]);
   return (
     <DashboardLayout title="Accounts Management" topbarAction={topbarAction}>
       <FileUploader

@@ -9,6 +9,7 @@ export { default as Li } from "./Li/Li";
 export { default as Spinner } from "./Spinner/Spinner";
 export { default as ReactTable } from "./React Table/ReactTable";
 export { default as User } from "./User/User";
+export { default as Account } from "./Account/Account";
 export { default as MenuDrawer } from "./MenuDrawer/MenuDrawer";
 export { default as Button } from "./Button/Button";
 export { default as CloseButton } from "./Button/CloseButton";

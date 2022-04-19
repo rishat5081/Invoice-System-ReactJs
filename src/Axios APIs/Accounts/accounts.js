@@ -38,10 +38,31 @@ export const CreateAccountfromFileAPI = (accountRegistration) => {
       });
   });
 };
+
 export const GetAllAccountAPI = () => {
   return new Promise(async (resolve, reject) => {
     await axios
       .get(constants.GetAllAccounts)
+      .then((value) => {
+        if (value) resolve(value.data);
+      })
+      .catch((err) => {
+        if (err) reject(err.response.data);
+      });
+  });
+};
+
+export const UpdateAccountByIdAPI = (
+  accountId,
+  accountNumber,
+  accountType,
+  companyName
+) => {
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .post(constants.UpdateAccountById, {
+        body: { id: accountId, accountNumber, accountType, companyName },
+      })
       .then((value) => {
         if (value) resolve(value.data);
       })
