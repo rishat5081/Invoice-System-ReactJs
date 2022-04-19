@@ -1,35 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { useTable, usePagination } from "react-table";
-const Styles = styled.div`
-  padding: 1rem;
-
-  table {
-    border-spacing: 0;
-
-    tr {
-      :last-child {
-        td {
-          border-bottom: 0;
-        }
-      }
-    }
-
-    th,
-    td {
-      margin: 0;
-      padding: 0.5rem;
-
-      :last-child {
-        border-right: 0;
-      }
-    }
-  }
-
-  .pagination {
-    padding: 0.5rem;
-  }
-`;
 
 function Table({ columns, data }) {
   // Use the state and functions returned from useTable to build your UI
@@ -60,17 +31,47 @@ function Table({ columns, data }) {
     usePagination
   );
 
+  function myFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
   // Render the UI for your table
   return (
     <>
-      <table className="table table-bordered" {...getTableProps()}>
+      <input
+        type="text"
+        id="myInput"
+        className="border  border-2 p-2"
+        onKeyUp={myFunction}
+        placeholder="Search for Account Number"
+        title="Type in a name"
+      />
+
+      <table id="myTable" className="table table-striped" {...getTableProps()}>
         <thead className="text-center">
           {headerGroups.map((headerGroup) => (
-            <tr className="text-center" {...headerGroup.getHeaderGroupProps()}>
+            <tr
+              className="text-center fw-bold"
+              {...headerGroup.getHeaderGroupProps()}
+            >
               {headerGroup.headers.map((column) => (
                 <th
                   scope="col"
-                  className="text-center border-0"
+                  className="text-center"
                   {...column.getHeaderProps()}
                 >
                   {column.render("Header")}
@@ -83,7 +84,7 @@ function Table({ columns, data }) {
           {page.map((row, i) => {
             prepareRow(row);
             return (
-              <tr className="text-center border-0" {...row.getRowProps()}>
+              <tr className="text-center" {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
                     <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
@@ -391,9 +392,5 @@ export default function App({ tableData }) {
     []
   );
 
-  return (
-    <Styles>
-      <Table columns={columns} data={tableData} />
-    </Styles>
-  );
+  return <Table columns={columns} data={tableData} />;
 }
