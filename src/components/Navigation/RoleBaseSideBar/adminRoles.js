@@ -3,7 +3,7 @@ import { paths } from "routes/paths";
 export const AdminSideBar = [
   {
     to: "/user-invoice",
-    text: "Invoices",
+    text: "Upload Invoices",
     icon: "money",
     disabled: false,
   },
@@ -26,8 +26,14 @@ export const AdminSideBar = [
     disabled: false,
   },
   {
-    to: "not-found",
+    to: paths.loginLogs,
     text: "Login Logs",
+    icon: "logs",
+    disabled: false,
+  },
+  {
+    to: paths.invoiceLogs,
+    text: "Invoice Logs",
     icon: "logs",
     disabled: false,
   },

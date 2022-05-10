@@ -24,43 +24,14 @@ export const routes = [
     exact: true,
     component: P.InvoiceManagement,
   },
-
   {
-    path: paths.supplierManagement,
+    path: paths.invoiceLogs,
     exact: true,
-    component: P.SupplierManagement,
+    component: P.InvoiceLogs,
   },
   {
-    path: paths.supplierManagementSupplier,
+    path: paths.loginLogs,
     exact: true,
-    component: P.ManagementSupplier,
+    component: P.LoginLogs,
   },
-  {
-    path: paths.supplierComparison,
-    exact: true,
-    component: P.SupplierComparison,
-  },
-  { path: paths.supplierComparisonSupplier, component: P.ComparisonSupplier },
-  {
-    path: paths.productLaunchTracker,
-    exact: true,
-    component: P.ProductLaunchTracker,
-  },
-  { path: paths.productLaunchTrackerProduct, component: P.TrackerProduct },
-  {
-    path: paths.dailyOperationsNotes,
-    exact: true,
-    component: P.DailyOperationsNotes,
-  },
-  {
-    path: paths.dailyOperationsNotesNewNote,
-    exact: true,
-    component: P.DailyOperationsNewNote,
-  },
-  {
-    path: paths.productManagement,
-    exact: true,
-    component: P.ProductsManagement,
-  },
-  { path: paths.productManagementProduct, component: P.ManagementProduct },
 ];

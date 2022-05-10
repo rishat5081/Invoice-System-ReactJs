@@ -4,6 +4,8 @@ export const paths = {
   userManagement: "/user-management",
   userInvoices: "/user-invoice",
   accounts: "/accounts",
+  loginLogs: "/loginLogs",
+  invoiceLogs: "/invoiceLogs",
   invoiceManagement: "/invoice-management",
   supplierManagement: "/supplier-management",
   supplierManagementSupplier: "/supplier-management/supplier/:id",

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useTable, usePagination } from "react-table";
 
-function Table({ columns, data }) {
+function Table({ columns, data, searchTag }) {
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -27,6 +27,7 @@ function Table({ columns, data }) {
       columns,
       data,
       initialState: { pageIndex: 0 },
+      searchTag,
     },
     usePagination
   );
@@ -52,14 +53,18 @@ function Table({ columns, data }) {
   // Render the UI for your table
   return (
     <>
-      <input
-        type="text"
-        id="myInput"
-        className="border  border-2 p-2"
-        onKeyUp={myFunction}
-        placeholder="Search for Account Number"
-        title="Type in a name"
-      />
+      {searchTag ? (
+        <input
+          type="text"
+          id="myInput"
+          className="border  border-2 p-2"
+          onKeyUp={myFunction}
+          placeholder={searchTag}
+          title="Type in a name"
+        />
+      ) : (
+        ""
+      )}
 
       <table id="myTable" className="table table-striped" {...getTableProps()}>
         <thead className="text-center">
@@ -152,265 +157,6 @@ function Table({ columns, data }) {
   );
 }
 
-export default function App({ tableData }) {
-  const columns = React.useMemo(
-    () => [
-      {
-        Header: " ",
-        columns: [
-          {
-            Header: "Account Number",
-            accessor: "accountNumber",
-          },
-          {
-            Header: "Account Type",
-            accessor: "accountType",
-          },
-          {
-            Header: "Company Name",
-            accessor: "companyName",
-          },
-          {
-            Header: "Options",
-            accessor: "options",
-          },
-        ],
-      },
-    ],
-    []
-  );
-
-  const data = React.useMemo(
-    () => [
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-        options: 0,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-      {
-        accountNumber: "trade",
-        accountType: "receipt",
-        companyName: 8,
-      },
-    ],
-    []
-  );
-
-  return <Table columns={columns} data={tableData} />;
+export default function App({ tableData, columns, searchTag }) {
+  return <Table columns={columns} data={tableData} searchTag={searchTag} />;
 }

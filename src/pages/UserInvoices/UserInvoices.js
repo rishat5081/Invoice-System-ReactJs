@@ -9,9 +9,7 @@ import {
   Li,
   Toast,
 } from "components";
-import { ModalContext } from "store/modalContext";
-import { DrawerContext } from "store/drawerContext";
-import { table } from "constants/pages/invoiceManagement";
+import { UploadInvoicesFilesAPI } from "../../Axios APIs/UserFiles/userFiles";
 import * as S from "./styles";
 import readXlsxFile from "read-excel-file";
 import { FileUploader } from "react-drag-drop-files";
@@ -20,21 +18,65 @@ import { FileUploader } from "react-drag-drop-files";
 const UserInvoices = () => {
   // This state will be fetch from API, for now it's constant from file.
   const [file, setFile] = useState(null);
+  const [pdfFiles, setPdfFiles] = useState(null);
+  const [pdfFileNamesState, setPdfFileNamesState] = useState([]);
+  const [uploadPdfFilesState, setUploadPdfFilesState] = useState([]);
   // const [file, setFile] = useState(null);
   const fileTypes = ["CSV", "XLS", "XLSX"];
-  const handleChange = async (file) => {
-    setFile(file);
-    const pdfFileData = await readXlsxFile(file[0])
+
+  //handling the excel file
+  const handleChange = async (file) => setFile(file);
+
+  const fileTypesPDF = ["PDF"];
+
+  //handling the PDF invoices
+  const handleChangePDF = async (file) => {
+    const checkFileName = pdfFileNamesState.find(
+      (pdfFile) =>
+        pdfFile.toUpperCase().toString() === file.name.toUpperCase().toString()
+    );
+
+    setUploadPdfFilesState((prev) => [...prev, file]);
+    console.log("uploadPdfFilesState", uploadPdfFilesState);
+    // if (checkFileName) setUploadPdfFilesState((prev) => [...prev, file]);
+    // else Toast("Invoice File Name Must be Same as Excel", "error");
+  };
+  const handleSubmitofPDFFiles = async () => {
+    if (pdfFileNamesState.length !== uploadPdfFilesState.length) {
+      Toast(
+        `Invoice count must be equal to '${pdfFileNamesState.length}'`,
+        "error"
+      );
+      return;
+    } else {
+      const formData = new FormData();
+      formData.append("file", uploadPdfFilesState);
+      formData.append("data", JSON.stringify(pdfFileNamesState));
+
+      const apiStatus = await UploadInvoicesFilesAPI(formData)
+        .then((value) => {
+          console.log("vvvv", value);
+        })
+        .catch((err) => {
+          console.log("err", err);
+        });
+    }
+  };
+
+  //handling the submit of the xls file
+  const handleSubmit = async () => {
+    //console.log("---fidasdsale-", file);
+    const pdfFileData = await readXlsxFile(file)
       .then((rows) => {
         if (rows) {
-          console.log(rows);
+          //console.log(rows);
           return rows;
         } else null;
       })
       .catch((err) => {
         if (err) {
           Toast("Error Reading the file", "error");
-          console.log(err);
+          //console.log(err);
           return null;
         }
       });
@@ -42,7 +84,6 @@ const UserInvoices = () => {
     if (pdfFileData) {
       let index = pdfFileData[0].findIndex((file) => file === "PDF_file_name");
       const newPDFData = pdfFileData.slice(1);
-      console.log("Index - ", index);
 
       let pdfFileNames = [];
       const sum = newPDFData.forEach((array, indesx) => {
@@ -51,77 +92,73 @@ const UserInvoices = () => {
         });
       });
 
-      console.log("===", pdfFileNames);
+      setPdfFileNamesState(pdfFileNames);
+
+      if (pdfFileNames.length === 0) {
+        Toast("No Inovice List Found in this File", "error");
+        setFile(null);
+      }
+      //console.log("===", pdfFileNames);
     }
-  };
-
-  const fileTypesPDF = ["PDF"];
-
-  const handleChangePDF = async (file) => {};
-  const deleteFile = (id) => {
-    console.log(id);
-  };
-
-  const handleSubmit = async () => {
-    console.log("========file ========", file);
-
-    const input = file[0];
-
-    readXlsxFile(input).then((rows) => {
-      // `rows` is an array of rows
-      // each row being an array of cells.
-
-      console.log(rows);
-    });
   };
 
   return (
     <DashboardLayout title="User Invoices">
       <div className="row">
-        <div className="col-6">
-          <div className="">
+        <div>
+          <div className="true">
             <FileUploader
-              multiple={true}
+              multiple={false}
               handleChange={handleChange}
               name="file"
               types={fileTypes}
             />
-            <p className="mt-4">
-              {file ? `Selected file: ${file[0].name}` : ""}
-            </p>
+            <p className="mt-4">{file ? `Selected file: ${file.name}` : ""}</p>
           </div>
-          <div className="col-2">
+          <div className="col-2 mt-4 mb-4">
             <SubmitButton onClick={handleSubmit}> Submit </SubmitButton>
           </div>
+          <hr />
         </div>
-        <div className="col-6 ml-5">
-          <div className="text-center font-weight-bold mb-3">
-            <h1> PDF Invoice</h1>
+      </div>
+      <div className="col-6 ml-5">
+        <div className="text-center font-bold mb-3">
+          <h1> PDF Invoice</h1>
+        </div>
+        {pdfFileNamesState.length === 0 ? (
+          <div className="text-center font-bold text-bold">
+            <h1> No XLSX, CSV File Selected</h1>
           </div>
-          {file === null ? (
-            <div className="text-center font-weight-bold">
-              <h1> No XLSX, CSV File Selected</h1>
+        ) : (
+          <div className="">
+            {pdfFileNamesState.length === 0 ? (
+              ""
+            ) : (
+              <div className="m-3">
+                <h1>
+                  Total Invoices should be {uploadPdfFilesState.length} /
+                  {pdfFileNamesState.length}
+                </h1>
+              </div>
+            )}
+            <FileUploader
+              multiple={false}
+              handleChange={handleChangePDF}
+              name="file"
+              types={fileTypesPDF}
+            />
+            <p className="mt-4">
+              {pdfFiles ? `Selected file: ${pdfFiles[0].name}` : ""}
+            </p>
+
+            <div className="col-2 mt-4 mb-4">
+              <SubmitButton onClick={handleSubmitofPDFFiles}>
+                {" "}
+                Submit{" "}
+              </SubmitButton>
             </div>
-          ) : (
-            <div className="">
-              <FileUploader
-                multiple={true}
-                handleChange={handleChangePDF}
-                name="file"
-                types={fileTypesPDF}
-              />
-              <p className="mt-4">
-                {file ? `Selected file: ${file[0].name}` : ""}
-              </p>
-            </div>
-            // <Li
-            //   className=" border p-2 bg-transparent"
-            //   name={"asdljka"}
-            //   deleteList={deleteFile}
-            //   id={"asdljka"}
-            // />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </DashboardLayout>
   );

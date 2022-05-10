@@ -163,6 +163,31 @@ const Accounts = () => {
       setIsWaiting(false);
     }
   }, [updateAccountState]);
+
+  const columns = [
+    {
+      Header: " ",
+      columns: [
+        {
+          Header: "Account Number",
+          accessor: "accountNumber",
+        },
+        {
+          Header: "Account Type",
+          accessor: "accountType",
+        },
+        {
+          Header: "Company Name",
+          accessor: "companyName",
+        },
+        {
+          Header: "Options",
+          accessor: "options",
+        },
+      ],
+    },
+  ];
+
   return (
     <DashboardLayout title="Accounts Management" topbarAction={topbarAction}>
       <FileUploader
@@ -173,7 +198,15 @@ const Accounts = () => {
       />
       <p className="mt-4">{file ? `Selected file: ${file[0].name}` : ""}</p>
 
-      {isWaiting === true ? <Spinner /> : <ReactTable tableData={tableData} />}
+      {isWaiting === true ? (
+        <Spinner />
+      ) : (
+        <ReactTable
+          tableData={tableData}
+          columns={columns}
+          searchTag={"Search for Account Number"}
+        />
+      )}
     </DashboardLayout>
   );
 };
