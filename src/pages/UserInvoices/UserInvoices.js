@@ -33,7 +33,8 @@ const UserInvoices = () => {
   const handleChangePDF = async (file) => {
     const checkFileName = pdfFileNamesState.find(
       (pdfFile) =>
-        pdfFile.toUpperCase().toString() === file.name.toUpperCase().toString()
+        pdfFile.fileName.toUpperCase().toString() ===
+        file.name.toUpperCase().toString()
     );
 
     setUploadPdfFilesState((prev) => [...prev, file]);
@@ -49,10 +50,18 @@ const UserInvoices = () => {
       );
       return;
     } else {
+      var arrStr = JSON.stringify(JSON.stringify(pdfFileNamesState));
+
+      console.log("uploadPdfFilesState ", uploadPdfFilesState);
+      console.log("pdfFileNamesState ", pdfFileNamesState);
+      // console.log("arrStr ----", arrStr);
+      let post_type_encoded = encodeURIComponent(arrStr);
+      console.log("---post_type_encoded---- ", post_type_encoded);
       const formData = new FormData();
       formData.append("file", uploadPdfFilesState);
-      formData.append("data", JSON.stringify(pdfFileNamesState));
+      formData.append("array", pdfFileNamesState);
 
+      // const apiStatus = await UploadInvoicesFilesAPI(formData, arrStr)
       const apiStatus = await UploadInvoicesFilesAPI(formData)
         .then((value) => {
           console.log("vvvv", value);
@@ -83,15 +92,24 @@ const UserInvoices = () => {
 
     if (pdfFileData) {
       let index = pdfFileData[0].findIndex((file) => file === "PDF_file_name");
+      let indexAccountNumber = pdfFileData[0].findIndex(
+        (file) => file === "UKWAccountNumber"
+      );
+
       const newPDFData = pdfFileData.slice(1);
 
+      // let pdfFileNames = [];
       let pdfFileNames = [];
       const sum = newPDFData.forEach((array, indesx) => {
+        var object = {};
         array.forEach((column, columnIndex) => {
-          if (index === columnIndex) pdfFileNames.push(column);
-        });
-      });
+          if (index === columnIndex) object["fileName"] = column; //Object.assign({ FileName: column }, object);
 
+          if (indexAccountNumber === columnIndex)
+            object["accountNumber"] = column;
+        });
+        pdfFileNames.push(object);
+      });
       setPdfFileNamesState(pdfFileNames);
 
       if (pdfFileNames.length === 0) {

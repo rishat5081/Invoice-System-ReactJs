@@ -23,9 +23,10 @@ import * as constants from "../Axios/filesConstants";
 //   });
 // };
 
-export const UploadInvoicesFilesAPI = (formData) => {
+export const UploadInvoicesFilesAPI = (formData, data) => {
   return new Promise(async (resolve, reject) => {
     await axios
+      // .post(constants.FilesUpload + "/" + data, formData)
       .post(constants.FilesUpload, formData)
       .then((value) => {
         if (value) resolve(value.data);
