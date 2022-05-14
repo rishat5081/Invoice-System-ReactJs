@@ -9,7 +9,10 @@ import {
   Li,
   Toast,
 } from "components";
-import { UploadInvoicesFilesAPI } from "../../Axios APIs/UserFiles/userFiles";
+import {
+  UploadInvoicesFilesAPI,
+  UploadNewAccountsFileDetailsAPI,
+} from "../../Axios APIs/UserFiles/userFiles";
 import * as S from "./styles";
 import readXlsxFile from "read-excel-file";
 import { FileUploader } from "react-drag-drop-files";
@@ -50,24 +53,38 @@ const UserInvoices = () => {
       );
       return;
     } else {
+      let neewFiles = [];
+      pdfFileNamesState.forEach((item, i) => {
+        uploadPdfFilesState.forEach((itemss, i) => {
+          // console.log("-----", itemss);
+          const nameee = itemss.name.split(".");
+          if (nameee[0].toString() === item?.fileName.toString()) {
+            const file = new File([itemss], item.uniqueFileName);
+            neewFiles.push(file);
+          }
+        });
+      });
+
       const formData = new FormData();
-      uploadPdfFilesState.forEach((item, i) => {
+      neewFiles.forEach((item, i) => {
         formData.append("file", item);
       });
-      pdfFileNamesState.forEach((item, i) => {
-        console.log(item);
-        formData.append(`userFiles${i}`, item);
-      });
 
-      // formData.append("userFiles", { pdfFileNamesState });
-
-      // const apiStatus = await UploadInvoicesFilesAPI(formData, arrStr)
       const apiStatus = await UploadInvoicesFilesAPI(formData)
         .then((value) => {
-          console.log("vvvv", value);
+          Toast(value, "success");
         })
         .catch((err) => {
-          console.log("err", err);
+          Toast(err, "error");
+        });
+      const apiStatuss = await UploadNewAccountsFileDetailsAPI(
+        pdfFileNamesState
+      )
+        .then((value) => {
+          Toast(value, "success");
+        })
+        .catch((err) => {
+          Toast(err, "error");
         });
     }
   };
@@ -104,9 +121,10 @@ const UserInvoices = () => {
         var object = {};
         array.forEach((column, columnIndex) => {
           const date = new Date();
-          if (index === columnIndex)
-            object["fileName"] = column + columnIndex + Date.now(date); //Object.assign({ FileName: column }, object);
-
+          if (index === columnIndex) {
+            object["uniqueFileName"] = column + columnIndex + Date.now(date); //Object.assign({ FileName: column }, object);
+            object["fileName"] = column; //Object.assign({ FileName: column }, object);
+          }
           if (indexAccountNumber === columnIndex)
             object["accountNumber"] = column;
         });
