@@ -50,16 +50,16 @@ const UserInvoices = () => {
       );
       return;
     } else {
-      var arrStr = JSON.stringify(JSON.stringify(pdfFileNamesState));
-
-      console.log("uploadPdfFilesState ", uploadPdfFilesState);
-      console.log("pdfFileNamesState ", pdfFileNamesState);
-      // console.log("arrStr ----", arrStr);
-      let post_type_encoded = encodeURIComponent(arrStr);
-      console.log("---post_type_encoded---- ", post_type_encoded);
       const formData = new FormData();
-      formData.append("file", uploadPdfFilesState);
-      formData.append("array", pdfFileNamesState);
+      uploadPdfFilesState.forEach((item, i) => {
+        formData.append("file", item);
+      });
+      pdfFileNamesState.forEach((item, i) => {
+        console.log(item);
+        formData.append(`userFiles${i}`, item);
+      });
+
+      // formData.append("userFiles", { pdfFileNamesState });
 
       // const apiStatus = await UploadInvoicesFilesAPI(formData, arrStr)
       const apiStatus = await UploadInvoicesFilesAPI(formData)
@@ -103,7 +103,9 @@ const UserInvoices = () => {
       const sum = newPDFData.forEach((array, indesx) => {
         var object = {};
         array.forEach((column, columnIndex) => {
-          if (index === columnIndex) object["fileName"] = column; //Object.assign({ FileName: column }, object);
+          const date = new Date();
+          if (index === columnIndex)
+            object["fileName"] = column + columnIndex + Date.now(date); //Object.assign({ FileName: column }, object);
 
           if (indexAccountNumber === columnIndex)
             object["accountNumber"] = column;
