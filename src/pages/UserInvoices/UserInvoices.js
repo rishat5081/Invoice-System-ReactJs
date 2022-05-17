@@ -109,6 +109,18 @@ const UserInvoices = () => {
 
     if (pdfFileData) {
       let index = pdfFileData[0].findIndex((file) => file === "PDF_file_name");
+      let indexInvoiceNumber = pdfFileData[0].findIndex(
+        (file) => file === "InvoiceNumber"
+      );
+      let indexTotal = pdfFileData[0].findIndex(
+        (file) => file === "Invoice Total"
+      );
+      let indexInvoiceDate = pdfFileData[0].findIndex(
+        (file) => file === "Invoice Date"
+      );
+      let indexInvoiceDue = pdfFileData[0].findIndex(
+        (file) => file === "Invoice Due Date"
+      );
       let indexAccountNumber = pdfFileData[0].findIndex(
         (file) => file === "UKWAccountNumber"
       );
@@ -127,6 +139,11 @@ const UserInvoices = () => {
           }
           if (indexAccountNumber === columnIndex)
             object["accountNumber"] = column;
+          if (indexInvoiceNumber === columnIndex)
+            object["invoiceNumber"] = column;
+          if (indexInvoiceDate === columnIndex) object["invoiceDate"] = column;
+          if (indexTotal === columnIndex) object["invoiceTotal"] = column;
+          if (indexInvoiceDue === columnIndex) object["invoiceDue"] = column;
         });
         pdfFileNames.push(object);
       });
@@ -136,7 +153,7 @@ const UserInvoices = () => {
         Toast("No Inovice List Found in this File", "error");
         setFile(null);
       }
-      //console.log("===", pdfFileNames);
+      console.log("===", pdfFileNames);
     }
   };
 
