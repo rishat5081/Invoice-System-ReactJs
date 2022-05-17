@@ -19,150 +19,168 @@ const LoginLogs = () => {
     console.log(object);
   };
   useEffect(async () => {
-    // const data = await GetAllAccountAPI();
-    // if (data.length > 0) {
-    //   const newData = [
-    //     {
-    //       email: "Login User Email",
-    //       date: "Login User Date & Time",
-    //       companyName: "obj.companyName",
-    //       options: (
-    //         <button
-    //           className="p-1 btn btn-sm btn-primary"
-    //           onClick={() => deleteLoginRecord("obj.id")}
-    //         >
-    //           {" "}
-    //           Update{" "}
-    //         </button>
-    //       ),
-    //     },
-    //   ];
-    //   setTableData(newData);
-    //   setIsWaiting(false);
-    // }
+    const invoiceData = await GetAllFilesAPI();
+    // console.log("data    ", data);
+    if (invoiceData.length > 0) {
+      const newData = invoiceData.map((data) => ({
+        email: data.email,
+        fullName: data.fullName ? data.fullName : "-",
+        accountNumber: data.accountNumber,
+        fileName: data.fileName,
+        options: (
+          <button
+            className="p-1 btn btn-sm btn-primary"
+            onClick={() => deleteLoginRecord(data.fileId)}
+          >
+            {" "}
+            Download{" "}
+          </button>
+        ),
+      }));
+      // // const newData = [
+      //   {
+      //     email: "Login User Email",
+      //     date: "Login User Date & Time",
+      //     companyName: "obj.companyName",
+      //     options: (
+      //       <button
+      //         className="p-1 btn btn-sm btn-primary"
+      //         onClick={() => deleteLoginRecord("obj.id")}
+      //       >
+      //         {" "}
+      //         Update{" "}
+      //       </button>
+      //     ),
+      //   },
+      // ];
 
-    const newData = [
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Saad",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Saad",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Saad",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Saad",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Saad",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-    ];
+      console.log(newData);
+      setTableData(newData);
+      setIsWaiting(false);
+    }
+
+    // const newData = [
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Saad",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Saad",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Saad",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Saad",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Saad",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    //   {
+    //     email: "Login User Email",
+    //     date: "Login User Date & Time",
+    //   },
+    // ];
 
     setTableData(newData);
     setIsWaiting(false);
@@ -177,8 +195,20 @@ const LoginLogs = () => {
           accessor: "email",
         },
         {
-          Header: "Date",
-          accessor: "date",
+          Header: "Full Name",
+          accessor: "fullName",
+        },
+        {
+          Header: "Account Number",
+          accessor: "accountNumber",
+        },
+        {
+          Header: "File Name",
+          accessor: "fileName",
+        },
+        {
+          Header: "Option",
+          accessor: "options",
         },
       ],
     },
