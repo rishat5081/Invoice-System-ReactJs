@@ -26,6 +26,12 @@ export const AdminSideBar = [
     disabled: false,
   },
   {
+    to: paths.allInvoicesFiles,
+    text: "All Invoices",
+    icon: "logs",
+    disabled: false,
+  },
+  {
     to: paths.loginLogs,
     text: "Login Logs",
     icon: "logs",

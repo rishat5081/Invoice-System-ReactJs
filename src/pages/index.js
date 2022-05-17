@@ -8,3 +8,4 @@ export { default as InvoiceLogs } from "./InvoiceLogs/InvoiceLogs";
 export { default as UserManagement } from "./UserManagement/UserManagement";
 export { default as InvoiceManagement } from "./InvoiceManagement/InvoiceManagement";
 export { default as UserInvoices } from "./UserInvoices/UserInvoices";
+export { default as All_InvoiceFiles } from "./All_InvoiceFiles/All_InvoiceFiles";

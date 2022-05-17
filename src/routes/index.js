@@ -25,6 +25,11 @@ export const routes = [
     component: P.InvoiceManagement,
   },
   {
+    path: paths.allInvoicesFiles,
+    exact: true,
+    component: P.All_InvoiceFiles,
+  },
+  {
     path: paths.invoiceLogs,
     exact: true,
     component: P.InvoiceLogs,
