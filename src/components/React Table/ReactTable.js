@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { useTable, usePagination } from "react-table";
 
-function Table({ columns, data, searchTag }) {
+import { useTable, usePagination, useGlobalFilter } from "react-table";
+function Table1({ columns, data, searchTag }) {
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -157,6 +157,151 @@ function Table({ columns, data, searchTag }) {
   );
 }
 
+function Table({ columns, data }) {
+  const props = useTable(
+    {
+      columns,
+      data,
+    },
+    useGlobalFilter, // useGlobalFilter!
+    usePagination
+  );
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    setGlobalFilter,
+    state,
+    page, // Instead of using 'rows', we'll use page,
+    // which has only the rows for the active page
+
+    // The rest of these things are super handy, too ;)
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize, globalFilter },
+  } = props;
+  console.log(props);
+  React.useEffect(() => {
+    // props.dispatch({ type: actions.resetPage })
+    console.log(globalFilter);
+  }, [globalFilter]);
+
+  return (
+    <>
+      <label for="search" placeholder="Enter the Name" className="p-2">
+        {" "}
+        Enter the Email{" "}
+      </label>
+      <input
+        className="p-2 border border-solid"
+        name="search"
+        type="text"
+        value={globalFilter || ""}
+        onChange={(e) => setGlobalFilter(e.target.value)}
+      />
+      <table className="table table-striped" {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr
+              className="text-center fw-bold"
+              {...headerGroup.getHeaderGroupProps()}
+            >
+              {headerGroup.headers.map((column) => (
+                <th
+                  scope="col"
+                  className="text-center"
+                  {...column.getHeaderProps()}
+                >
+                  {column.render("Header")}
+                  {/* Render the columns filter UI */}
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {page.map((row, i) => {
+            prepareRow(row);
+            return (
+              <tr className="text-center" {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return (
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <div className="pagination">
+        <button
+          className="p-2 page-item"
+          onClick={() => gotoPage(0)}
+          disabled={!canPreviousPage}
+        >
+          {"<<"}
+        </button>{" "}
+        <button
+          className="p-2 page-item"
+          onClick={() => previousPage()}
+          disabled={!canPreviousPage}
+        >
+          {"<"}
+        </button>{" "}
+        <button
+          className="p-2 page-item"
+          onClick={() => nextPage()}
+          disabled={!canNextPage}
+        >
+          {">"}
+        </button>{" "}
+        <button
+          className="p-2 page-item"
+          onClick={() => gotoPage(pageCount - 1)}
+          disabled={!canNextPage}
+        >
+          {">>"}
+        </button>{" "}
+        <span className="p-2 page-item">
+          Page{" "}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>{" "}
+        </span>
+        <span>
+          | Go to page:{" "}
+          <input
+            type="number"
+            defaultValue={pageIndex + 1}
+            onChange={(e) => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0;
+              gotoPage(page);
+            }}
+            style={{ width: "100px" }}
+          />
+        </span>{" "}
+      </div>
+
+      <br />
+      <div>Showing the first 20 results of {rows.length} rows</div>
+      <div>
+        <pre>
+          <code>{JSON.stringify(state.filters, null, 2)}</code>
+        </pre>
+      </div>
+    </>
+  );
+}
+
 export default function App({ tableData, columns, searchTag }) {
-  return <Table columns={columns} data={tableData} searchTag={searchTag} />;
+  return <Table columns={columns} data={tableData} />;
 }
