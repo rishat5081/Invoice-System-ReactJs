@@ -196,7 +196,7 @@ function Table({ columns, data }) {
 
   return (
     <>
-      <label for="search" placeholder="Search " className="p-2">
+      <label htmlFor="search" placeholder="Search " className="p-2">
         {" "}
         Search{" "}
       </label>

@@ -42,6 +42,25 @@ export const GetAllFilesAPI = () => {
       });
   });
 };
+export const DownloadFilesAPI = (fileName) => {
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .get(
+        constants.DownloadInvoiceFiles + `/${fileName}`
+        //   , {
+        //   params: {
+        //     fileName,
+        //   },
+        // }
+      )
+      .then((value) => {
+        if (value) resolve(value.data);
+      })
+      .catch((err) => {
+        if (err) reject(err.response.data);
+      });
+  });
+};
 //
 // export const UpdateAccountByIdAPI = (
 //   accountId,
