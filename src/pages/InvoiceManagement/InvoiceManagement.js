@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import * as S from "./styles";
 import {
-  GetAllFilesAPI,
+  GetAllFilesByUserIdAPI,
   DownloadFilesAPI,
 } from "../../Axios APIs/UserFiles/userFiles";
 const LoginLogs = () => {
@@ -19,7 +19,11 @@ const LoginLogs = () => {
     setUpdateAccountState(true);
   };
   const downloadFile = async (object) => {
-    const data = await DownloadFilesAPI(object);
+    const data = await DownloadFilesAPI(object).catch((err) => {
+      Toast(err, "error");
+    });
+
+    console.log("data --------", data);
     if (data) {
       const link = document.createElement("a");
       link.target = "_blank";
@@ -27,10 +31,12 @@ const LoginLogs = () => {
 
       link.href = URL.createObjectURL(new Blob([data], { type: "file/pdf" }));
       link.click();
+    } else {
+      Toast(data, "error");
     }
   };
   useEffect(async () => {
-    const invoiceData = await GetAllFilesAPI();
+    const invoiceData = await GetAllFilesByUserIdAPI();
     //console.log("invoiceData    ", invoiceData);
     if (invoiceData.length > 0) {
       const newData = invoiceData.map((data) => ({
@@ -49,9 +55,10 @@ const LoginLogs = () => {
         ),
       }));
 
-      if (newData.length > 0)
-        //console.log(newData);
-        setTableData(newData);
+      if (newData.length > 0) setTableData(newData);
+      setIsWaiting(false);
+    } else {
+      Toast("No Invoices Found");
       setIsWaiting(false);
     }
   }, [updateAccountState]);

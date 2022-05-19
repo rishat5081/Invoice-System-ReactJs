@@ -19,7 +19,9 @@ const LoginLogs = () => {
     setUpdateAccountState(true);
   };
   const downloadFile = async (object) => {
-    const data = await DownloadFilesAPI(object);
+    const data = await DownloadFilesAPI(object).catch((err) => {
+      Toast(err, "error");
+    });
     if (data) {
       const link = document.createElement("a");
       link.target = "_blank";
@@ -27,6 +29,8 @@ const LoginLogs = () => {
 
       link.href = URL.createObjectURL(new Blob([data], { type: "file/pdf" }));
       link.click();
+    } else {
+      Toast(data, "error");
     }
   };
   useEffect(async () => {
