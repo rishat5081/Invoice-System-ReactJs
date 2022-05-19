@@ -188,10 +188,10 @@ function Table({ columns, data }) {
     setPageSize,
     state: { pageIndex, pageSize, globalFilter },
   } = props;
-  console.log(props);
+  // console.log(props);
   React.useEffect(() => {
     // props.dispatch({ type: actions.resetPage })
-    console.log(globalFilter);
+    // console.log(globalFilter);
   }, [globalFilter]);
 
   return (

@@ -1,80 +1,97 @@
-import { useState, useEffect, useContext, useCallback } from "react";
-
+import { useContext, useState, useEffect } from "react";
 import { DashboardLayout } from "layouts";
-import { Table, TableLink, Forms } from "components";
+import { Toast, ReactTable, Spinner } from "components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { ModalContext } from "store/modalContext";
-import { DrawerContext } from "store/drawerContext";
-import { table } from "constants/pages/invoiceManagement";
+import { faCircleMinus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import * as S from "./styles";
+import {
+  GetAllFilesAPI,
+  DownloadFilesAPI,
+} from "../../Axios APIs/UserFiles/userFiles";
+const LoginLogs = () => {
+  const [isWaiting, setIsWaiting] = useState(true);
+  const [updateAccountState, setUpdateAccountState] = useState(false);
+  const [tableData, setTableData] = useState([]);
 
-const InvoiceManagement = () => {
-  // This state will be fetch from API, for now it's constant from file.
-  const [tableData, setTableData] = useState(table.data);
-  const [transformedTableData, setTransformedTableData] = useState([]);
-  const [isTableTransformed, setIsTableTransformed] = useState(false);
-  const { onShow: showModal } = useContext(ModalContext);
-  const { onShow: showDrawer } = useContext(DrawerContext);
-
-  const addInvoice = (newInvoice) => {
-    setTableData((prev) => [...prev, newInvoice]);
-    setIsTableTransformed(false);
+  //child function
+  const updateAccount = (object) => {
+    setUpdateAccountState(true);
   };
+  const downloadFile = async (object) => {
+    const data = await DownloadFilesAPI(object);
+    if (data) {
+      const link = document.createElement("a");
+      link.target = "_blank";
+      link.download = object;
 
-  const transformTableData = useCallback(() => {
-    setTransformedTableData(() => {
-      const transformedData = tableData.map((el) => {
-        const newCol1 = (
-          <TableLink
-            onClick={() =>
-              showDrawer({
-                content: (
-                  <span style={{ color: "#ccc" }}>
-                    There is no component for this field. This will be updated,
-                    later.
-                  </span>
-                ),
-              })
-            }
-          >
-            {el.col1}
-          </TableLink>
-        );
-        const newCol10 = <S.SeeNotes>{el.col10}</S.SeeNotes>;
-
-        return {
-          ...el,
-          col1: newCol1,
-          col10: newCol10,
-        };
-      });
-
-      return transformedData;
-    });
-  }, [showDrawer, tableData]);
-
-  useEffect(() => {
-    if (!isTableTransformed) {
-      transformTableData();
-      setIsTableTransformed(true);
+      link.href = URL.createObjectURL(new Blob([data], { type: "file/pdf" }));
+      link.click();
     }
-  }, [isTableTransformed, transformTableData]);
-
-  const topbarAction = {
-    name: "New Invoice",
-    onClick: () => {
-      showModal({
-        content: <Forms.CreateNewInvoice onAddInvoice={addInvoice} />,
-        title: "Create New Invoice",
-      });
-    },
   };
+  useEffect(async () => {
+    const invoiceData = await GetAllFilesAPI();
+    //console.log("invoiceData    ", invoiceData);
+    if (invoiceData.length > 0) {
+      const newData = invoiceData.map((data) => ({
+        email: data.email,
+        fullName: data.fullName ? data.fullName : "-",
+        accountNumber: data.accountNumber,
+        fileName: data.fileName,
+        options: (
+          <button
+            className="p-1 btn btn-sm btn-primary"
+            onClick={() => downloadFile(data.uniqueFileName)}
+          >
+            {" "}
+            Download{" "}
+          </button>
+        ),
+      }));
 
+      if (newData.length > 0)
+        //console.log(newData);
+        setTableData(newData);
+      setIsWaiting(false);
+    }
+  }, [updateAccountState]);
+
+  const columns = [
+    {
+      Header: " ",
+      columns: [
+        {
+          Header: "Email",
+          accessor: "email",
+        },
+        {
+          Header: "Full Name",
+          accessor: "fullName",
+        },
+        {
+          Header: "Account Number",
+          accessor: "accountNumber",
+        },
+        {
+          Header: "File Name",
+          accessor: "fileName",
+        },
+        {
+          Header: "Option",
+          accessor: "options",
+        },
+      ],
+    },
+  ];
   return (
-    <DashboardLayout title="Invoice Management" topbarAction={topbarAction}>
-      <Table payload={{ data: transformedTableData, columns: table.columns }} />
+    <DashboardLayout title="Invoices">
+      {isWaiting === true ? (
+        <Spinner />
+      ) : (
+        <ReactTable tableData={tableData} columns={columns} searchTag={false} />
+      )}
     </DashboardLayout>
   );
 };
 
-export default InvoiceManagement;
+export default LoginLogs;

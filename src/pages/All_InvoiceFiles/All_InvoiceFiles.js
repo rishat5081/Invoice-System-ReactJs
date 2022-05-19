@@ -84,7 +84,7 @@ const LoginLogs = () => {
     },
   ];
   return (
-    <DashboardLayout title="Login Logs">
+    <DashboardLayout title="Invoices">
       {isWaiting === true ? (
         <Spinner />
       ) : (

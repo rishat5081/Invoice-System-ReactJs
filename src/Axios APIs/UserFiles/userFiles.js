@@ -44,6 +44,10 @@ export const GetAllFilesAPI = () => {
 };
 export const DownloadFilesAPI = (fileName) => {
   return new Promise(async (resolve, reject) => {
+    const userDetails = localStorage.getItem("userDetails");
+
+    const userObject = JSON.parse(userDetails);
+
     await axios
       .get(
         constants.DownloadInvoiceFiles + `/${fileName}`

@@ -25,7 +25,8 @@ const Login = (props) => {
       .then((value) => {
         if (value) {
           Toast("Successfully Logged In", "success");
-          localStorage.setItem("userDetails", value.user);
+          // console.log(value.user);
+          localStorage.setItem("userDetails", JSON.stringify(value.user));
           localStorage.setItem("token", value.token);
           localStorage.setItem("user", "admin");
           history.push("/user-invoice");
