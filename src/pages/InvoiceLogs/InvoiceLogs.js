@@ -5,10 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faCircleMinus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import * as S from "./styles";
-import {
-  CreateAccountfromFileAPI,
-  GetAllAccountAPI,
-} from "../../Axios APIs/Accounts/accounts";
+import { DownloadInvoiceFilesLogsAPI } from "../../Axios APIs/UserFiles/userFiles";
 const InvoiceLogs = () => {
   const [isWaiting, setIsWaiting] = useState(true);
   const [updateAccountState, setUpdateAccountState] = useState(false);
@@ -22,145 +19,134 @@ const InvoiceLogs = () => {
     console.log(object);
   };
   useEffect(async () => {
-    console.log("Use Effect");
-    // const data = await GetAllAccountAPI();
-    // if (data.length > 0) {
-    //   const newData = [
-    //     {
-    //       email: "obj.email",
-    //       date: "obj.date",
-    // invoice: "invoice",
-    //       companyName: "obj.companyName",
-    //       options: (
-    //         <button
-    //           className="p-1 btn btn-sm btn-primary"
-    //           onClick={() => deleteLoginRecord("obj.id")}
-    //         >
-    //           {" "}
-    //           Update{" "}
-    //         </button>
-    //       ),
-    //     },
-    //   ];
-    //   setTableData(newData);
-    //   setIsWaiting(false);
-    // }
+    const data = await DownloadInvoiceFilesLogsAPI();
+    if (data.length > 0) {
+      console.log("Use Effect -----", data);
+      const newData = data.map((object) => ({
+        firstName: object.firstName,
+        lastName: object.lastName,
+        downloadFileName: object.downloadFileName,
+        logTime: object.logTime,
+      }));
+      setTableData(newData);
+      setIsWaiting(false);
+    }
 
-    const newData = [
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-      {
-        email: "User Email",
-        invoice: "Invoice ID or Invoice",
-        date: "Date of Download",
-      },
-    ];
-
-    setTableData(newData);
+    // const newData = [
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    //   {
+    //     email: "User Email",
+    //     invoice: "Invoice ID or Invoice",
+    //     date: "Date of Download",
+    //   },
+    // ];
+    //
+    // setTableData(newData);
     setIsWaiting(false);
   }, [updateAccountState]);
 
@@ -169,16 +155,20 @@ const InvoiceLogs = () => {
       Header: " ",
       columns: [
         {
-          Header: "Email",
-          accessor: "email",
+          Header: "First Name",
+          accessor: "firstName",
         },
         {
-          Header: "Invoice",
-          accessor: "invoice",
+          Header: "Last Name",
+          accessor: "lastName",
+        },
+        {
+          Header: "File Name",
+          accessor: "downloadFileName",
         },
         {
           Header: "Date",
-          accessor: "date",
+          accessor: "logTime",
         },
       ],
     },

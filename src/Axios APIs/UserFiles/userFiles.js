@@ -45,18 +45,9 @@ export const GetAllFilesAPI = () => {
 export const DownloadFilesAPI = (fileName) => {
   return new Promise(async (resolve, reject) => {
     const userDetails = localStorage.getItem("userDetails");
-
     const userObject = JSON.parse(userDetails);
-
     await axios
-      .get(
-        constants.DownloadInvoiceFiles + `/${fileName}/${userObject.id}`
-        //   , {
-        //   params: {
-        //     fileName,
-        //   },
-        // }
-      )
+      .get(constants.DownloadInvoiceFiles + `/${fileName}/${userObject.id}`)
       .then((value) => {
         if (value) resolve(value.data);
       })
@@ -67,12 +58,22 @@ export const DownloadFilesAPI = (fileName) => {
 };
 export const GetAllFilesByUserIdAPI = () => {
   const userDetails = localStorage.getItem("userDetails");
-
   const userObject = JSON.parse(userDetails);
-
   return new Promise(async (resolve, reject) => {
     await axios
       .get(constants.GetAllInvoiceFiles)
+      .then((value) => {
+        if (value) resolve(value.data);
+      })
+      .catch((err) => {
+        if (err) reject(err.response.data);
+      });
+  });
+};
+export const DownloadInvoiceFilesLogsAPI = () => {
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .get(constants.DownloadInvoiceFilesLogs)
       .then((value) => {
         if (value) resolve(value.data);
       })
