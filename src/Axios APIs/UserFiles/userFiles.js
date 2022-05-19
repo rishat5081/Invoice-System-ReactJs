@@ -82,6 +82,18 @@ export const DownloadInvoiceFilesLogsAPI = () => {
       });
   });
 };
+export const UserLoginLogsAPI = () => {
+  return new Promise(async (resolve, reject) => {
+    await axios
+      .get(constants.UserLoginLogs)
+      .then((value) => {
+        if (value) resolve(value.data);
+      })
+      .catch((err) => {
+        if (err) reject(err.response.data);
+      });
+  });
+};
 //
 // export const UpdateAccountByIdAPI = (
 //   accountId,

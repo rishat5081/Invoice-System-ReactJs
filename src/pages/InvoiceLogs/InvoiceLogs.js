@@ -21,7 +21,6 @@ const InvoiceLogs = () => {
   useEffect(async () => {
     const data = await DownloadInvoiceFilesLogsAPI();
     if (data.length > 0) {
-      console.log("Use Effect -----", data);
       const newData = data.map((object) => ({
         firstName: object.firstName,
         lastName: object.lastName,
@@ -30,124 +29,10 @@ const InvoiceLogs = () => {
       }));
       setTableData(newData);
       setIsWaiting(false);
+    } else {
+      Toast("No Record Found", "error");
+      setIsWaiting(false);
     }
-
-    // const newData = [
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    //   {
-    //     email: "User Email",
-    //     invoice: "Invoice ID or Invoice",
-    //     date: "Date of Download",
-    //   },
-    // ];
-    //
-    // setTableData(newData);
-    setIsWaiting(false);
   }, [updateAccountState]);
 
   const columns = [

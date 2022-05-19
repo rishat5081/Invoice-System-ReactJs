@@ -5,10 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faCircleMinus, faTrash } from "@fortawesome/free-solid-svg-icons";
 import * as S from "./styles";
-import {
-  CreateAccountfromFileAPI,
-  GetAllAccountAPI,
-} from "../../Axios APIs/Accounts/accounts";
+import { UserLoginLogsAPI } from "../../Axios APIs/UserFiles/userFiles";
 const LoginLogs = () => {
   const [isWaiting, setIsWaiting] = useState(true);
   const [updateAccountState, setUpdateAccountState] = useState(false);
@@ -22,166 +19,40 @@ const LoginLogs = () => {
     console.log(object);
   };
   useEffect(async () => {
-    // const data = await GetAllAccountAPI();
-    // if (data.length > 0) {
-    //   const newData = [
-    //     {
-    //       email: "Login User Email",
-    //       date: "Login User Date & Time",
-    //       companyName: "obj.companyName",
-    //       options: (
-    //         <button
-    //           className="p-1 btn btn-sm btn-primary"
-    //           onClick={() => deleteLoginRecord("obj.id")}
-    //         >
-    //           {" "}
-    //           Update{" "}
-    //         </button>
-    //       ),
-    //     },
-    //   ];
-    //   setTableData(newData);
-    //   setIsWaiting(false);
-    // }
-
-    const newData = [
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Saad",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Saad",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Saad",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Saad",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Saad",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-      {
-        email: "Login User Email",
-        date: "Login User Date & Time",
-      },
-    ];
-
-    setTableData(newData);
-    setIsWaiting(false);
+    const data = await UserLoginLogsAPI();
+    if (data.length > 0) {
+      const newData = data.map((object) => ({
+        firstName: object.firstName,
+        lastName: object.lastName,
+        logIp: object.logIp,
+        logTime: object.logTime,
+      }));
+      setTableData(newData);
+      setIsWaiting(false);
+    } else {
+      Toast("No Record Found", "error");
+      setIsWaiting(false);
+    }
   }, [updateAccountState]);
-
   const columns = [
     {
       Header: " ",
       columns: [
         {
-          Header: "Email",
-          accessor: "email",
+          Header: "First Name",
+          accessor: "firstName",
+        },
+        {
+          Header: "Last Name",
+          accessor: "lastName",
+        },
+        {
+          Header: "Ip Address",
+          accessor: "logIp",
         },
         {
           Header: "Date",
-          accessor: "date",
+          accessor: "logTime",
         },
       ],
     },
