@@ -39,4 +39,9 @@ export const routes = [
     exact: true,
     component: P.LoginLogs,
   },
+  {
+    path: paths.changePassword,
+    exact: true,
+    component: P.ChangePassword,
+  },
 ];

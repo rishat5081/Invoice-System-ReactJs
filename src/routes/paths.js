@@ -8,6 +8,7 @@ export const paths = {
   invoiceLogs: "/invoiceLogs",
   invoiceManagement: "/invoice-management",
   allInvoicesFiles: "/all-invoices-files",
+  changePassword: "/change-password",
   // supplierManagement: "/supplier-management",
   // supplierManagementSupplier: "/supplier-management/supplier/:id",
   // supplierComparison: "/supplier-comparison",
