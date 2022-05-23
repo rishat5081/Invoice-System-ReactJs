@@ -41,7 +41,8 @@ const LoginLogs = () => {
     if (invoiceData.length > 0) {
       const newData = invoiceData.map((data) => ({
         email: data.email,
-        fullName: data.fullName ? data.fullName : "-",
+        firstName: data.firstName ? data.firstName : "-",
+        lastName: data.lastName ? data.lastName : "-",
         accountNumber: data.accountNumber,
         fileName: data.fileName,
         options: (
@@ -72,8 +73,12 @@ const LoginLogs = () => {
           accessor: "email",
         },
         {
-          Header: "Full Name",
-          accessor: "fullName",
+          Header: "First Name",
+          accessor: "firstName",
+        },
+        {
+          Header: "Last Name",
+          accessor: "lastName",
         },
         {
           Header: "Account Number",

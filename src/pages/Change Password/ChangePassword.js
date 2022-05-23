@@ -1,30 +1,25 @@
 // import { signUpAPI } from "APIs/Web Controls/webControls";
-import { Input, NavigationBar, Select, SubmitButton } from "components";
+import { Input, NavigationBar, Select, SubmitButton, Toast } from "components";
 import { DashboardLayout } from "layouts";
 import { useFormWithYup } from "hooks";
 import { Fragment } from "react";
 import { Controller } from "react-hook-form";
 import { schema, fields_1 } from "./validations";
-const SignUp = (props) => {
+import { ChangePasswordAPI } from "../../Axios APIs/User APIs/Userapis";
+const ChangePassword = (props) => {
   const { register, handleSubmit, errors, control } = useFormWithYup(schema);
 
   const onSubmit = async (data) => {
     console.log("Login ::: ", data);
 
-    // await signUpAPI(
-    //   data.confirmpassword,
-    //   data.email,
-    //   data.firstname,
-    //   data.lastName,
-    //   data.password
-    // )
-    //   .then((result) => {
-    //     if (result.status === "Created") callSuccessToast(result.message);
-    //     if (result.status === "Error") callErrorToast(result.message);
-    //   })
-    //   .catch((err) => {
-    //     if (err.status === "Error") callErrorToast(err.message);
-    //   });
+    await ChangePasswordAPI(data.oldPassword, data.confirmpassword)
+      .then((result) => {
+        console.log("------------", result);
+        if (result) Toast(result.message, "sucess");
+      })
+      .catch((err) => {
+        if (err) Toast(result.message, "error");
+      });
   };
   return (
     <>
@@ -75,4 +70,4 @@ const SignUp = (props) => {
     </>
   );
 };
-export default SignUp;
+export default ChangePassword;
